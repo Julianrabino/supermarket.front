@@ -1,0 +1,45 @@
+<div class="container">
+  <div [hidden]="submitted">
+      <!-- {{diagnostic}} -->
+    <h1>Iniciar sesión</h1>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="inputNombre">Nombre de usuario</label>
+        <input type="text" class="form-control" id="inputNombre" required [(ngModel)]="model.nombre" name="nombre" #name="ngModel">
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Se requiere el nombre de usuario
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" required [(ngModel)]="model.password" name="password" #password='ngModel'>
+        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            Se requiere la constraseña
+          </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Submit</button>
+
+    </form>
+  </div>
+  <div [hidden]="!submitted">
+      <!-- <h2>You submitted the following:</h2>
+      <div class="row">
+        <div class="col-xs-3">Nombre de usuario</div>
+        <div class="col-xs-9">{{ model.nombre }}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Contraseña</div>
+        <div class="col-xs-9">{{ model.password }}</div>
+      </div>
+      <br>
+      <button class="btn btn-primary" (click)="submitted=false">Edit</button> -->
+
+      
+      <div class="row">
+        <div class="col-xs-6">Hola {{model.nombrePila}}!!</div>
+        <div class="col-xs-6"><button class="btn btn-primary" (click)="submitted=false">Logout</button></div>
+      </div>      
+    </div>
+</div>
