@@ -1,0 +1,9 @@
+{
+    "usersUrl" : "http://localhost:3000/users",
+    "bonitaLoginService" : "http://localhost:8080/bonita/loginservice",
+    "bonitaStartProcess" : "http://localhost:8080/bonita/API/bpm/case",
+    "bonitaHumanTasks" : "http://localhost:8080/bonita/API/bpm/humanTask",
+    "bonitaActivities" : "http://localhost:8080/bonita/API/bpm/activity",
+    "bonitaCaseVariable" : "http://localhost:8080/bonita/API/bpm/caseVariable",
+    "bonitaBusinessDataVenta" : "http://localhost:8080/bonita/API/bdm/businessData/com.company.model.VentaDataModel"
+}

@@ -1,5 +1,5 @@
 <div class="container">
-  <div [hidden]="submitted">
+  <div *ngIf="!usuarioLogueado">
       <!-- {{diagnostic}} -->
     <h1>Iniciar sesión</h1>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -19,27 +19,17 @@
           </div>
       </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Submit</button>
-
+      <button id="submit" type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Submit</button>
+  
+      <div *ngIf="errorLogin" class="alert alert-danger">
+        {{errorLogin}}
+      </div>
     </form>
   </div>
-  <div [hidden]="!submitted">
-      <!-- <h2>You submitted the following:</h2>
+  <div *ngIf="usuarioLogueado">
       <div class="row">
-        <div class="col-xs-3">Nombre de usuario</div>
-        <div class="col-xs-9">{{ model.nombre }}</div>
-      </div>
-      <div class="row">
-        <div class="col-xs-3">Contraseña</div>
-        <div class="col-xs-9">{{ model.password }}</div>
-      </div>
-      <br>
-      <button class="btn btn-primary" (click)="submitted=false">Edit</button> -->
-
-      
-      <div class="row">
-        <div class="col-xs-6">Hola {{model.nombrePila}}!!</div>
-        <div class="col-xs-6"><button class="btn btn-primary" (click)="submitted=false">Logout</button></div>
+        <div class="col-xs-6">Hola {{usuarioLogueado.nombrePila}} {{usuarioLogueado.apellido}}!!</div>
+        <div class="col-xs-6"><button class="btn btn-primary" (click)="logout()">Logout</button></div>
       </div>      
     </div>
 </div>

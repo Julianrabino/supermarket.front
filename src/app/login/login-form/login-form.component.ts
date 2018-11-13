@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Usuario } from '../usuario';
+import { Usuario } from '../usuario.model';
+import { LoginService } from '../login.service';
+import { LoginUser } from '../login-user.model';
 
 @Component({
   selector: 'app-login-form',
@@ -9,16 +11,31 @@ import { Usuario } from '../usuario';
 })
 export class LoginFormComponent implements OnInit {
 
-  submitted = false;
+  usuarioLogueado: Usuario = null; 
+  model: LoginUser;
+  errorLogin: string = null;
 
-  model: Usuario = { nombre : 'juliancesar', password : '123', nombrePila : 'Julián', apellido : 'Rabino', numeroDocumento : 30912073 };
-
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    this.model = new LoginUser();
   }
 
-  onSubmit() { this.submitted = true; }
+  onSubmit() {
+    this.errorLogin = null;
+    this.loginService.LogIn(this.model).then(
+      res => {
+        this.usuarioLogueado = res;
+        if (!this.usuarioLogueado) {
+          this.errorLogin = 'Credenciales inválidas';
+        }
+      },
+      msg => console.log(msg));
+  }
+
+  logout() {
+    this.usuarioLogueado = null;
+  }
 
   // TODO: Remove this when we're done
   // get diagnostic() { return JSON.stringify(this.model); }
