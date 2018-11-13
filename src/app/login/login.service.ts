@@ -15,13 +15,13 @@ export class LoginService {
     const promise = new Promise<Usuario>((resolve, reject) => {
       const options = loginUser ?
       { params: new HttpParams()
-          .set('nombre', loginUser.nombre)
+          .set('nombre', loginUser.nombre.toLowerCase())
           .set('password', loginUser.password)
       } : {};
       this.http.get<Usuario[]>(this.configService.Config.usersUrl, options).toPromise().then(
         res => { resolve(res[0]); },
         err => { reject(err); }
-      )
+      );
     });
     return promise;
   }

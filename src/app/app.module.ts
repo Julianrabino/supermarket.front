@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { ConfigService } from './config/config.service';
+import { ListadoProductosComponent } from './productos/listado-productos/listado-productos.component';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -15,7 +16,8 @@ export function get_Config(configService: ConfigService) {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    ListadoProductosComponent
   ],
   imports: [
     BrowserModule,

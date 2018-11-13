@@ -1,7 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    {{ title }}
+  </h1>
+  <img width="150" alt="Logo supermercado" src="assets/img/start_logo.png"> 
+</div>
 <div class="container">
   <div *ngIf="!usuarioLogueado">
-      <!-- {{diagnostic}} -->
-    <h1>Iniciar sesión</h1>
+    <div style="text-align:center">
+      <h1>Iniciar sesión</h1>
+    </div>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
         <label for="inputNombre">Nombre de usuario</label>

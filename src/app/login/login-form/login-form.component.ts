@@ -10,8 +10,8 @@ import { LoginUser } from '../login-user.model';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-
-  usuarioLogueado: Usuario = null; 
+  title = 'Supermercado Online';
+  usuarioLogueado: Usuario = null;
   model: LoginUser;
   errorLogin: string = null;
 
