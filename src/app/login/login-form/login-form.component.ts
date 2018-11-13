@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario.model';
 import { LoginService } from '../login.service';
 import { LoginUser } from '../login-user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -15,7 +16,7 @@ export class LoginFormComponent implements OnInit {
   model: LoginUser;
   errorLogin: string = null;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.model = new LoginUser();
@@ -26,7 +27,9 @@ export class LoginFormComponent implements OnInit {
     this.loginService.LogIn(this.model).then(
       res => {
         this.usuarioLogueado = res;
-        if (!this.usuarioLogueado) {
+        if (this.usuarioLogueado) {
+          this.router.navigate(['productos']);
+        } else {
           this.errorLogin = 'Credenciales inválidas';
         }
       },
