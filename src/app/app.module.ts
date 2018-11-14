@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login/login-form/login-form.component';
 import { ConfigService } from './config/config.service';
 import { ListadoProductosComponent } from './productos/listado-productos/listado-productos.component';
+import { CookieService } from 'ngx-cookie-service';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -27,7 +28,8 @@ export function get_Config(configService: ConfigService) {
   ],
   providers: [
     ConfigService,
-    { provide: APP_INITIALIZER, useFactory: get_Config, deps: [ConfigService], multi: true }
+    { provide: APP_INITIALIZER, useFactory: get_Config, deps: [ConfigService], multi: true },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

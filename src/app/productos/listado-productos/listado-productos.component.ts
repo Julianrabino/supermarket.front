@@ -14,11 +14,9 @@ export class ListadoProductosComponent implements OnInit {
   constructor(private http: HttpClient, private bonitaService: BonitaService) { }
 
   ngOnInit() {
-    this.bonitaService.LogIn().then(resp => 
-      {
+    this.bonitaService.LogIn().then(resp => {
         this.tokenResp = resp;
       });
-    //this.ObtenerProductos().then(resp => { this.tokenResp = resp; });
   }
 
   // public ObtenerProductos(): Promise<string> {
