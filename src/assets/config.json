@@ -1,9 +1,12 @@
 {
     "usersUrl" : "http://localhost:3000/users",
-    "bonitaLoginService" : "http://localhost:8080/bonita/loginservice",
-    "bonitaStartProcess" : "http://localhost:8080/bonita/API/bpm/case",
-    "bonitaHumanTasks" : "http://localhost:8080/bonita/API/bpm/humanTask",
-    "bonitaActivities" : "http://localhost:8080/bonita/API/bpm/activity",
-    "bonitaCaseVariable" : "http://localhost:8080/bonita/API/bpm/caseVariable",
-    "bonitaBusinessDataVenta" : "http://localhost:8080/bonita/API/bdm/businessData/com.company.model.VentaDataModel"
+    "bonitaLoginService" : "/bonita/loginservice",
+    "bonitaStartProcess" : "/bonita/API/bpm/case",
+    "bonitaHumanTasks" : "/bonita/API/bpm/humanTask",
+    "bonitaActivities" : "/bonita/API/bpm/activity",
+    "bonitaCaseVariable" : "/bonita/API/bpm/caseVariable",
+    "bonitaBusinessDataVenta" : "/bonita/API/bdm/businessData/com.company.model.VentaDataModel",
+    "bonitaLoginUsername" : "customer",
+    "bonitaLoginPassword" : "123",
+    "bonitaApiTokenHeader": "X-Bonita-API-Token"
 }

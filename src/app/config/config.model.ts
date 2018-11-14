@@ -6,4 +6,7 @@ export interface Config {
     bonitaActivities: string;
     bonitaCaseVariable: string;
     bonitaBusinessDataVenta: string;
+    bonitaLoginUsername: string;
+    bonitaLoginPassword: string;
+    bonitaApiTokenHeader: string;
   }
