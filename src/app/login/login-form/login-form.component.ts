@@ -4,6 +4,9 @@ import { Usuario } from '../usuario.model';
 import { LoginService } from '../login.service';
 import { LoginUser } from '../login-user.model';
 import { Router } from '@angular/router';
+import { BonitaService } from 'src/app/bonita/bonita.service';
+import { SessionService } from 'src/app/storage/session.service';
+import { ConfigService } from 'src/app/config/config.service';
 
 @Component({
   selector: 'app-login-form',
@@ -16,7 +19,12 @@ export class LoginFormComponent implements OnInit {
   model: LoginUser;
   errorLogin: string = null;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private bonitaService: BonitaService,
+    private sessionService: SessionService,
+    private configService: ConfigService) { }
 
   ngOnInit() {
     this.model = new LoginUser();
@@ -30,10 +38,14 @@ export class LoginFormComponent implements OnInit {
     this.loginService.LogIn(this.model).then(
       res => {
         this.usuarioLogueado = res;
-        if (this.usuarioLogueado) {
-          this.router.navigate(['productos']);
-        } else {
+        if (!this.usuarioLogueado) {
           this.errorLogin = 'Credenciales inválidas';
+        } else {
+          this.bonitaService.LogIn().then(
+            token => {
+              this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, token);
+              this.router.navigate(['productos']);
+            });
         }
       },
       msg => console.log(msg));

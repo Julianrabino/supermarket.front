@@ -4,6 +4,7 @@ import { LoginUser } from './login-user.model';
 import { ConfigService } from '../config/config.service';
 import { Usuario } from './usuario.model';
 import { SessionService } from '../storage/session.service';
+import { BonitaService } from '../bonita/bonita.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private configService: ConfigService,
-    private sessionService: SessionService) { }
+    private sessionService: SessionService,
+    private bonitaService: BonitaService) { }
 
   public LogIn(loginUser: LoginUser): Promise<Usuario> {
     const promise = new Promise<Usuario>((resolve, reject) => {
@@ -36,7 +38,11 @@ export class LoginService {
   public LogOut(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
         this.sessionService.set(this.configService.Config.sessionKeys.currentUser, null);
-        resolve(true);
+        this.bonitaService.LogOut().then(
+          res => {
+            this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, null);
+            resolve(res);
+          });
       });
     return promise;
   }

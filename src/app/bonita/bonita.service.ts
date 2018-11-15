@@ -30,4 +30,11 @@ export class BonitaService {
     });
     return promise;
   }
+
+  public LogOut(): Promise<boolean> {
+    const promise = new Promise<boolean>((resolve, reject) => {
+        resolve(true);
+    });
+    return promise;
+  }
 }
