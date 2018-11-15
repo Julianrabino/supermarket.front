@@ -4,7 +4,7 @@ import { LoginUser } from './login-user.model';
 import { ConfigService } from '../config/config.service';
 import { Usuario } from './usuario.model';
 import { SessionService } from '../storage/session.service';
-import { BonitaService } from '../bonita/bonita.service';
+import { BonitaAuthenticationService } from '../bonita/bonita-authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class LoginService {
     private http: HttpClient,
     private configService: ConfigService,
     private sessionService: SessionService,
-    private bonitaService: BonitaService) { }
+    private bonitaAuthenticationService: BonitaAuthenticationService) { }
 
   public LogIn(loginUser: LoginUser): Promise<Usuario> {
     const promise = new Promise<Usuario>((resolve, reject) => {
@@ -27,7 +27,7 @@ export class LoginService {
       this.http.get<Usuario[]>(this.configService.Config.usersUrl, options).toPromise().then(
         usuarios => {
           this.sessionService.set(this.configService.Config.sessionKeys.currentUser, usuarios[0]);
-          this.bonitaService.LogIn().then(
+          this.bonitaAuthenticationService.LogIn().then(
             token => {
               this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, token);
               resolve(usuarios[0]);
@@ -42,7 +42,7 @@ export class LoginService {
   public LogOut(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
         this.sessionService.set(this.configService.Config.sessionKeys.currentUser, null);
-        this.bonitaService.LogOut().then(
+        this.bonitaAuthenticationService.LogOut().then(
           res => {
             this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, null);
             resolve(true);

@@ -4,7 +4,7 @@ import { Usuario } from '../usuario.model';
 import { LoginService } from '../login.service';
 import { LoginUser } from '../login-user.model';
 import { Router } from '@angular/router';
-import { BonitaService } from 'src/app/bonita/bonita.service';
+import { BonitaAuthenticationService } from 'src/app/bonita/bonita-authentication.service';
 import { SessionService } from 'src/app/storage/session.service';
 import { ConfigService } from 'src/app/config/config.service';
 
@@ -22,7 +22,6 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private bonitaService: BonitaService,
     private sessionService: SessionService,
     private configService: ConfigService) { }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BonitaService } from 'src/app/bonita/bonita.service';
+import { BonitaAuthenticationService } from 'src/app/bonita/bonita-authentication.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
@@ -11,12 +11,9 @@ export class ListadoProductosComponent implements OnInit {
 
   tokenResp: string;
 
-  constructor(private http: HttpClient, private bonitaService: BonitaService) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.bonitaService.LogIn().then(resp => {
-        this.tokenResp = resp;
-      });
   }
 
   // public ObtenerProductos(): Promise<string> {

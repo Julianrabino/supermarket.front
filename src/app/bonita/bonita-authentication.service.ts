@@ -7,7 +7,7 @@ import { SessionService } from '../storage/session.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BonitaService {
+export class BonitaAuthenticationService {
 
   constructor(
     private http: HttpClient,
