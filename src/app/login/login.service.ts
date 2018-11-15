@@ -25,9 +25,13 @@ export class LoginService {
           .set('password', loginUser.password)
       } : {};
       this.http.get<Usuario[]>(this.configService.Config.usersUrl, options).toPromise().then(
-        res => {
-          this.sessionService.set(this.configService.Config.sessionKeys.currentUser, res[0]);
-          resolve(res[0]);
+        usuarios => {
+          this.sessionService.set(this.configService.Config.sessionKeys.currentUser, usuarios[0]);
+          this.bonitaService.LogIn().then(
+            token => {
+              this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, token);
+              resolve(usuarios[0]);
+            });
         },
         err => { reject(err); }
       );
@@ -41,7 +45,7 @@ export class LoginService {
         this.bonitaService.LogOut().then(
           res => {
             this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, null);
-            resolve(res);
+            resolve(true);
           });
       });
     return promise;

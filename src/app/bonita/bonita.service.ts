@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
 import { CookieService } from 'ngx-cookie-service';
+import { SessionService } from '../storage/session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class BonitaService {
   constructor(
     private http: HttpClient,
     private configService: ConfigService,
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    private sessionService: SessionService) {
   }
 
   public LogIn(): Promise<string> {
@@ -33,7 +35,15 @@ export class BonitaService {
 
   public LogOut(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
-        resolve(true);
+      const loginHeaders: HttpHeaders = new HttpHeaders().set(
+        this.configService.Config.bonitaApiTokenHeader,
+        this.sessionService.get(this.configService.Config.sessionKeys.currentBonitaApiToken));
+
+      const params = 'redirect=false';
+
+      this.http.get(this.configService.Config.bonitaLogoutService + '?' + params, { headers: loginHeaders }).toPromise().then(
+          resp => { resolve(true); },
+          err => { reject(err); });
     });
     return promise;
   }

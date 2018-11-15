@@ -1,6 +1,7 @@
 {
     "usersUrl" : "http://localhost:3000/users",
     "bonitaLoginService" : "/bonita/loginservice",
+    "bonitaLogoutService" : "/bonita/logoutservice",
     "bonitaStartProcess" : "/bonita/API/bpm/case",
     "bonitaHumanTasks" : "/bonita/API/bpm/humanTask",
     "bonitaActivities" : "/bonita/API/bpm/activity",

@@ -1,6 +1,7 @@
 export interface Config {
     usersUrl: string;
     bonitaLoginService: string;
+    bonitaLogoutService: string;
     bonitaStartProcess: string;
     bonitaHumanTasks: string;
     bonitaActivities: string;

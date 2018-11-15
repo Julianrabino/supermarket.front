@@ -41,11 +41,7 @@ export class LoginFormComponent implements OnInit {
         if (!this.usuarioLogueado) {
           this.errorLogin = 'Credenciales inválidas';
         } else {
-          this.bonitaService.LogIn().then(
-            token => {
-              this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, token);
-              this.router.navigate(['productos']);
-            });
+          this.router.navigate(['productos']);
         }
       },
       msg => console.log(msg));
@@ -56,9 +52,6 @@ export class LoginFormComponent implements OnInit {
       if (res) {
         this.usuarioLogueado = null;
       }
-    });
+    }).catch(ex => { this.usuarioLogueado = null; });
   }
-
-  // TODO: Remove this when we're done
-  // get diagnostic() { return JSON.stringify(this.model); }
 }
