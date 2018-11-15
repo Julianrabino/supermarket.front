@@ -20,6 +20,9 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit() {
     this.model = new LoginUser();
+    this.loginService.GetCurrentUser().then(user => {
+      this.usuarioLogueado = user;
+    });
   }
 
   onSubmit() {
@@ -37,7 +40,11 @@ export class LoginFormComponent implements OnInit {
   }
 
   logout() {
-    this.usuarioLogueado = null;
+    this.loginService.LogOut().then(res => {
+      if (res) {
+        this.usuarioLogueado = null;
+      }
+    });
   }
 
   // TODO: Remove this when we're done

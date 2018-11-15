@@ -9,4 +9,8 @@ export interface Config {
     bonitaLoginUsername: string;
     bonitaLoginPassword: string;
     bonitaApiTokenHeader: string;
+    sessionKeys: {
+      currentUser: string;
+      currentBonitaApiToken: string;
+    };
   }

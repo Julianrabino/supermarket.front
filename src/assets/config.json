@@ -8,5 +8,9 @@
     "bonitaBusinessDataVenta" : "/bonita/API/bdm/businessData/com.company.model.VentaDataModel",
     "bonitaLoginUsername" : "customer",
     "bonitaLoginPassword" : "123",
-    "bonitaApiTokenHeader": "X-Bonita-API-Token"
+    "bonitaApiTokenHeader": "X-Bonita-API-Token",
+    "sessionKeys" : {
+        "currentUser": "currentUser",
+        "currentBonitaApiToken": "currentBonitaApiToken"
+    }
 }

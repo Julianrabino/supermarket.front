@@ -34,10 +34,11 @@
       </div>
     </form>
   </div>
-  <div *ngIf="usuarioLogueado">
-      <div class="row">
-        <div class="col-xs-6">Hola {{usuarioLogueado.nombrePila}} {{usuarioLogueado.apellido}}!!</div>
-        <div class="col-xs-6"><button class="btn btn-primary" (click)="logout()">Logout</button></div>
+  <div *ngIf="usuarioLogueado">      
+      <div style="text-align:center">
+        <h1>Hola {{usuarioLogueado.nombrePila}} {{usuarioLogueado.apellido}}!!</h1>
+        <div id="logout"><button class="btn btn-secundary" (click)="logout()">Logout</button></div>
+        <a id="verProductos" routerLink="/productos" routerLinkActive="active">Ver Productos</a>
       </div>      
-    </div>
+  </div>
 </div>
