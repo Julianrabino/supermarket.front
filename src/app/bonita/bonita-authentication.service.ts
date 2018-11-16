@@ -16,7 +16,7 @@ export class BonitaAuthenticationService {
     private sessionService: SessionService) {
   }
 
-  public LogIn(): Promise<string> {
+  public logIn(): Promise<string> {
     const promise = new Promise<string>((resolve, reject) => {
       const loginHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -33,11 +33,11 @@ export class BonitaAuthenticationService {
     return promise;
   }
 
-  public LogOut(): Promise<boolean> {
+  public logOut(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
       const loginHeaders: HttpHeaders = new HttpHeaders().set(
         this.configService.Config.bonitaApiTokenHeader,
-        this.sessionService.get(this.configService.Config.sessionKeys.currentBonitaApiToken));
+        this.sessionService.currentBonitaApiToken);
 
       const params = 'redirect=false';
 

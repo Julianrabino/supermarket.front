@@ -1,8 +1,21 @@
 export interface Config {
     usersUrl: string;
+    bonita: {
+      urls: {
+        cases: string;
+        humanTasks: string;
+        activities: string;
+        caseVariable: string;
+        businessDataVenta: string;
+      },
+      variables: {
+          nroDocumento: string;
+      },
+      processDefinitionId: string;
+    };
     bonitaLoginService: string;
     bonitaLogoutService: string;
-    bonitaStartProcess: string;
+    bonitaCases: string;
     bonitaHumanTasks: string;
     bonitaActivities: string;
     bonitaCaseVariable: string;
@@ -13,5 +26,6 @@ export interface Config {
     sessionKeys: {
       currentUser: string;
       currentBonitaApiToken: string;
+      currentCaseId: string;
     };
   }

@@ -17,7 +17,7 @@ export class LoginService {
     private sessionService: SessionService,
     private bonitaAuthenticationService: BonitaAuthenticationService) { }
 
-  public LogIn(loginUser: LoginUser): Promise<Usuario> {
+  public logIn(loginUser: LoginUser): Promise<Usuario> {
     const promise = new Promise<Usuario>((resolve, reject) => {
       const options = loginUser ?
       { params: new HttpParams()
@@ -26,10 +26,10 @@ export class LoginService {
       } : {};
       this.http.get<Usuario[]>(this.configService.Config.usersUrl, options).toPromise().then(
         usuarios => {
-          this.sessionService.set(this.configService.Config.sessionKeys.currentUser, usuarios[0]);
-          this.bonitaAuthenticationService.LogIn().then(
+          this.sessionService.currentUser = usuarios[0];
+          this.bonitaAuthenticationService.logIn().then(
             token => {
-              this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, token);
+              this.sessionService.currentBonitaApiToken = token;
               resolve(usuarios[0]);
             });
         },
@@ -39,12 +39,12 @@ export class LoginService {
     return promise;
   }
 
-  public LogOut(): Promise<boolean> {
+  public logOut(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
-        this.sessionService.set(this.configService.Config.sessionKeys.currentUser, null);
-        this.bonitaAuthenticationService.LogOut().then(
+        this.sessionService.currentUser = null;
+        this.bonitaAuthenticationService.logOut().then(
           res => {
-            this.sessionService.set(this.configService.Config.sessionKeys.currentBonitaApiToken, null);
+            this.sessionService.currentBonitaApiToken = null;
             resolve(true);
           });
       });
@@ -53,7 +53,7 @@ export class LoginService {
 
   public GetCurrentUser(): Promise<Usuario> {
     const promise = new Promise<Usuario>((resolve, reject) => {
-        resolve(this.sessionService.get(this.configService.Config.sessionKeys.currentUser));
+        resolve(this.sessionService.currentUser);
       });
     return promise;
   }

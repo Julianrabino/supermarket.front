@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BonitaAuthenticationService } from 'src/app/bonita/bonita-authentication.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Producto } from '../producto.model';
+import { SessionService } from 'src/app/storage/session.service';
+import { BonitaCaseService } from 'src/app/bonita/bonita-case.service';
 
 @Component({
   selector: 'app-listado-productos',
@@ -9,21 +10,19 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class ListadoProductosComponent implements OnInit {
 
-  tokenResp: string;
+  productos: Producto[];
+  caseId: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private sessionService: SessionService,
+    private bonitaCaseService: BonitaCaseService
+    ) { }
 
   ngOnInit() {
+    if (!this.sessionService.currentCase) {
+      this.bonitaCaseService.start().then(caseId => {
+        this.caseId = caseId;
+      });
+    }
   }
-
-  // public ObtenerProductos(): Promise<string> {
-  //   const promise = new Promise<string>((resolve, reject) => {
-  //     this.http.get('http://localhost:49257/api/product').toPromise().then(
-  //       resp => { resolve(JSON.stringify(resp)); },
-  //       err => { reject(err); }
-  //     );
-  //   });
-  //   return promise;
-  // }
-
 }

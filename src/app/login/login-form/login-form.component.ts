@@ -34,7 +34,7 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit() {
     this.errorLogin = null;
-    this.loginService.LogIn(this.model).then(
+    this.loginService.logIn(this.model).then(
       res => {
         this.usuarioLogueado = res;
         if (!this.usuarioLogueado) {
@@ -47,7 +47,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   logout() {
-    this.loginService.LogOut().then(res => {
+    this.loginService.logOut().then(res => {
       if (res) {
         this.usuarioLogueado = null;
       }
