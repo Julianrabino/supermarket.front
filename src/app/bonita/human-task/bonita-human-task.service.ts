@@ -44,14 +44,18 @@ export class BonitaHumanTaskService {
   //   return promise;
   // }
 
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   public async whaitFor(name: string): Promise<BonitaActivity> {
-    let result = null;
-    let cantidadIntentos = 5;
+    let result;
+    let cantidadIntentos = 10;
     let fin = false;
     while (!fin && cantidadIntentos > 0) {
       await this.getCurrent().then(
         task => {
-          if (task.name === name) {
+          if (task && (task.name === name)) {
             result = task;
             fin = true;
           } else {
@@ -62,6 +66,9 @@ export class BonitaHumanTaskService {
           fin = true;
         }
       );
+      if (!result) {
+        await this.delay(500);
+      }
     }
     return result;
   }

@@ -28,7 +28,8 @@ export class BonitaCaseService {
 
       const body = {
         processDefinitionId: this.configService.Config.bonita.processDefinitionId,
-        variables: [ new BonitaVariable(this.configService.Config.bonita.variables.nroDocumento, 30912124) ]
+        variables: [ new BonitaVariable(this.configService.Config.bonita.variables.nroDocumento,
+          this.sessionService.currentUser.numeroDocumento) ]
       };
 
       this.http.post<BonitaCase>(this.apiUrl, body,
