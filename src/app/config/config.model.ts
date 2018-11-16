@@ -7,25 +7,23 @@ export interface Config {
         activities: string;
         caseVariable: string;
         businessDataVenta: string;
+        loginService: string;
+        logoutService: string;
       },
       variables: {
           nroDocumento: string;
+          productos: string;
       },
       processDefinitionId: string;
+      loginUsername: string;
+      loginPassword: string;
+      apiTokenHeader: string;
     };
-    bonitaLoginService: string;
-    bonitaLogoutService: string;
-    bonitaCases: string;
-    bonitaHumanTasks: string;
-    bonitaActivities: string;
-    bonitaCaseVariable: string;
-    bonitaBusinessDataVenta: string;
-    bonitaLoginUsername: string;
-    bonitaLoginPassword: string;
-    bonitaApiTokenHeader: string;
     sessionKeys: {
       currentUser: string;
       currentBonitaApiToken: string;
       currentCaseId: string;
+      currentTaskId: string;
+      currentProducts: string;
     };
   }

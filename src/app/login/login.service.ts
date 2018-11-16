@@ -4,7 +4,7 @@ import { LoginUser } from './login-user.model';
 import { ConfigService } from '../config/config.service';
 import { Usuario } from './usuario.model';
 import { SessionService } from '../storage/session.service';
-import { BonitaAuthenticationService } from '../bonita/bonita-authentication.service';
+import { BonitaAuthenticationService } from '../bonita/authentication/bonita-authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,10 +41,9 @@ export class LoginService {
 
   public logOut(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
-        this.sessionService.currentUser = null;
         this.bonitaAuthenticationService.logOut().then(
           res => {
-            this.sessionService.currentBonitaApiToken = null;
+            this.sessionService.clean();
             resolve(true);
           });
       });

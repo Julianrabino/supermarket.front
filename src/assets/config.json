@@ -1,26 +1,29 @@
 {
-    "usersUrl" : "http://localhost:3000/users",
+    "usersUrl": "http://localhost:3000/users",
     "bonita": {
         "urls": {
-            "cases" : "/bonita/API/bpm/case", 
-            "humanTasks" : "/bonita/API/bpm/humanTask", 
-            "activities" : "/bonita/API/bpm/activity",
-            "caseVariable" : "/bonita/API/bpm/caseVariable",
-            "businessDataVenta" : "/bonita/API/bdm/businessData/com.company.model.VentaDataModel"
+            "loginService": "/bonita/loginservice",
+            "logoutService": "/bonita/logoutservice",    
+            "cases": "/bonita/API/bpm/case", 
+            "humanTasks": "/bonita/API/bpm/humanTask", 
+            "activities": "/bonita/API/bpm/activity",
+            "caseVariable": "/bonita/API/bpm/caseVariable",
+            "businessDataVenta": "/bonita/API/bdm/businessData/com.company.model.VentaDataModel"
         },
-        "variables" : {
-            "nroDocumento": "p_nroDocumento"
+        "variables": {
+            "nroDocumento": "p_nroDocumento",
+            "productos": "p_resultJson"
         },
-        "processDefinitionId" : "7239965089823590224"
-    },
-    "bonitaLoginService" : "/bonita/loginservice",
-    "bonitaLogoutService" : "/bonita/logoutservice",    
-    "bonitaLoginUsername" : "customer",
-    "bonitaLoginPassword" : "123",
-    "bonitaApiTokenHeader": "X-Bonita-API-Token",    
-    "sessionKeys" : {
+        "processDefinitionId": "7239965089823590224",
+        "loginUsername": "customer",
+        "loginPassword": "123",
+        "apiTokenHeader": "X-Bonita-API-Token"
+    },    
+    "sessionKeys": {
         "currentUser": "currentUser",
         "currentBonitaApiToken": "currentBonitaApiToken",
-        "currentCaseId": "currentCaseId"
+        "currentCaseId": "currentCaseId",
+        "currentTaskId": "currentTaskId",
+        "currentProducts": "currentProducts"              
     }
 }

@@ -1,13 +1,13 @@
-export class BonitaCaseStarted {
+export class BonitaCase {
     end_date: Date;
-    processDefinitionId: number;
+    processDefinitionId: string;
     start: Date;
-    rootCaseId: number;
-    id: number;
+    rootCaseId: string;
+    id: string;
     state: BonitaCaseState;
-    started_by: number;
+    started_by: string;
     last_update_date: Date;
-    startedBySubstitute: number;
+    startedBySubstitute: string;
 }
 
 export declare type BonitaCaseState = 'INITIALIZING' | 'STARTED' | 'SUSPENDED' | 'CANCELLED' |
