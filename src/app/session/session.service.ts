@@ -14,7 +14,12 @@ export class SessionService {
   constructor(private configService: ConfigService) { }
 
   public set(key: string, value: any): any {
-    sessionStorage.setItem(key, JSON.stringify(value));
+    if (value) {
+      sessionStorage.setItem(key, JSON.stringify(value));
+    } else {
+      sessionStorage.setItem(key, null);
+    }
+    
     return value;
   }
 

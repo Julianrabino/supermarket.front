@@ -36,9 +36,11 @@ export class LoginService {
                 this.sessionService.currentBonitaApiToken = token;
                 resolve(usuarios[0]);
               });
+          } else {
+            reject('El usuario o contraseña es inválido');
           }
         },
-        err => { reject(err); }
+        err => { reject('Error inesperado al iniciar sesión'); }
       );
     });
     return promise;

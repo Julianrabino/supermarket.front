@@ -32,13 +32,9 @@ export class LoginFormComponent implements OnInit {
     this.loginService.logIn(this.model).then(
       res => {
         this.usuarioLogueado = res;
-        if (!this.usuarioLogueado) {
-          this.errorLogin = 'Credenciales inválidas';
-        } else {
-          this.router.navigate(['productos']);
-        }
+        this.router.navigate(['productos']);
       },
-      msg => console.log(msg));
+      msg => this.errorLogin = msg);
   }
 
   logout() {
