@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { SessionService } from '../session/session.service';
 import { CompraProducto, CarritoCompra } from './carrito-compra.model';
 import { MensajeUi } from '../shared/mensaje-ui.model';
 import { CarritoCompraService } from './carrito-compra.service';
+import { SimpleModalComponent, ModalDialogService } from 'ngx-modal-dialog';
 
 @Component({
   selector: 'app-carrito-compra',
@@ -16,7 +17,9 @@ export class CarritoCompraComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
-    private carritoCompraService: CarritoCompraService
+    private carritoCompraService: CarritoCompraService,
+    private modalService: ModalDialogService,
+    private viewRef: ViewContainerRef
   ) { }
 
   ngOnInit() {
@@ -34,16 +37,47 @@ export class CarritoCompraComponent implements OnInit {
   }
 
   public decrementarProducto(compraProducto: CompraProducto) {
-    this.carritoCompraService.eliminarProducto(compraProducto.Producto, 1)
+    if (compraProducto.Cantidad > 1) {
+      this.carritoCompraService.eliminarProducto(compraProducto.Producto, 1)
       .then(resp => {
         this.productos = this.sessionService.currentCart.Productos;
       })
       .catch(error => {
         this.mensajeUi = new MensajeUi(error, compraProducto.Producto.id, 'error');
       });
+    } else {
+      this.eliminarProducto(compraProducto);
+    }
   }
 
-  public eliminarProducto(compraProducto) {
+  public eliminarProducto(compraProducto: CompraProducto) {
+    this.modalService.openDialog(this.viewRef, {
+      title: 'Confirmación',
+      childComponent: SimpleModalComponent,
+      data: {
+        text: '¿Está seguro que desea eliminar el producto del carrito?'
+      },
+      settings: {
+        closeButtonClass: 'close theme-icon-close'
+      },
+      actionButtons: [
+        {
+          text: 'Si!',
+          buttonClass: 'btn btn-success',
+          onAction: () => new Promise((resolve: any) => {
+            this.borrarProducto(compraProducto);
+            resolve();
+          })
+        },
+        {
+          text: 'No',
+          buttonClass: 'btn btn-danger'
+        }
+      ]
+    });
+  }
+
+  public borrarProducto(compraProducto) {
     this.carritoCompraService.eliminarProducto(compraProducto.Producto, compraProducto.Cantidad)
       .then(resp => {
         this.productos = this.sessionService.currentCart.Productos;
