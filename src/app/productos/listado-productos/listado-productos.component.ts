@@ -13,7 +13,7 @@ import { ProductosService } from '../productos.service';
 export class ListadoProductosComponent implements OnInit {
 
   productos: Producto[];
-  //caseId: string;
+  // caseId: string;
   mensajeError: string;
 
   constructor(
@@ -26,7 +26,7 @@ export class ListadoProductosComponent implements OnInit {
   ngOnInit() {
     if (!this.sessionService.currentCase) {
       this.bonitaCaseService.start().then(caseId => {
-        //this.caseId = caseId;
+        // this.caseId = caseId;
         this.bonitaHumantaskService.whaitFor('IniciarCompra').then(
           actividad => {
             this.sessionService.currentActivity = actividad;
