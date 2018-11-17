@@ -19,7 +19,11 @@ export class ProductosService {
     const promise = new Promise<Producto[]>((resolve, reject) => {
       this.bonitaCaseService.getCaseVariable(
         this.sessionService.currentCase.id, this.configService.Config.bonita.variables.productos).then(
-          res => { resolve(JSON.parse(res.value)); },
+          res => {
+            const products = JSON.parse(res.value);
+            this.sessionService.currentProducts = products;
+            resolve(products);
+          },
           error => { reject(error); }
         );
     });

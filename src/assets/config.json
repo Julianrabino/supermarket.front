@@ -14,7 +14,7 @@
             "nroDocumento": "p_nroDocumento",
             "productos": "p_resultJson"
         },
-        "processDefinitionId": "7239965089823590224",
+        "processDefinitionId": "6604165163639912985",
         "loginUsername": "customer",
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token"

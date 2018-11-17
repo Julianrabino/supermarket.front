@@ -3,6 +3,7 @@ import { Usuario } from '../login/usuario.model';
 import { ConfigService } from '../config/config.service';
 import { BonitaCase } from '../bonita/case/bonita-case.model';
 import { BonitaActivity } from '../bonita/bonita-shared.model';
+import { Producto } from '../productos/producto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class SessionService {
     return item ? JSON.parse(item) : null;
   }
 
+  // USER
   get currentUser(): Usuario {
     return this.get(this.configService.Config.sessionKeys.currentUser);
   }
@@ -29,6 +31,7 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentUser, user);
   }
 
+  // BonitaToken
   get currentBonitaApiToken(): string {
     return this.get(this.configService.Config.sessionKeys.currentBonitaApiToken);
   }
@@ -37,6 +40,7 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentBonitaApiToken, token);
   }
 
+  // Activity
   get currentActivity(): BonitaActivity {
     return this.get(this.configService.Config.sessionKeys.currentTaskId);
   }
@@ -45,6 +49,7 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentTaskId, activity);
   }
 
+  // Case
   get currentCase(): BonitaCase {
     return this.get(this.configService.Config.sessionKeys.currentCaseId);
   }
@@ -53,10 +58,19 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentCaseId, caso);
   }
 
+  get currentProducts(): Producto[] {
+    return this.get(this.configService.Config.sessionKeys.currentProducts);
+  }
+
+  set currentProducts(products: Producto[]) {
+    this.set(this.configService.Config.sessionKeys.currentProducts, products);
+  }
+
   public clean(): void {
     this.currentActivity = null;
     this.currentBonitaApiToken = null;
     this.currentCase = null;
     this.currentUser = null;
+    this.currentProducts = null;
   }
 }

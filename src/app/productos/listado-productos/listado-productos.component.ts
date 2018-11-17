@@ -13,8 +13,8 @@ import { ProductosService } from '../productos.service';
 export class ListadoProductosComponent implements OnInit {
 
   productos: Producto[];
-  caseId: string;
-  tareaDesc: string;
+  //caseId: string;
+  mensajeError: string;
 
   constructor(
     private sessionService: SessionService,
@@ -26,7 +26,7 @@ export class ListadoProductosComponent implements OnInit {
   ngOnInit() {
     if (!this.sessionService.currentCase) {
       this.bonitaCaseService.start().then(caseId => {
-        this.caseId = caseId;
+        //this.caseId = caseId;
         this.bonitaHumantaskService.whaitFor('IniciarCompra').then(
           actividad => {
             this.sessionService.currentActivity = actividad;
@@ -34,11 +34,11 @@ export class ListadoProductosComponent implements OnInit {
               res => { this.productos = res; }
             );
           },
-          error => { this.tareaDesc = error; }
+          error => { this.mensajeError = error; }
         );
       });
     } else {
-      this.caseId = this.sessionService.currentCase.id;
+      this.productos = this.sessionService.currentProducts;
     }
   }
 }
