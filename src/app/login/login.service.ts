@@ -3,8 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoginUser } from './login-user.model';
 import { ConfigService } from '../config/config.service';
 import { Usuario } from './usuario.model';
-import { SessionService } from '../storage/session.service';
+import { SessionService } from '../session/session.service';
 import { BonitaAuthenticationService } from '../bonita/authentication/bonita-authentication.service';
+import { CarritoCompraService } from '../carrito-compra/carrito-compra.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class LoginService {
     private http: HttpClient,
     private configService: ConfigService,
     private sessionService: SessionService,
-    private bonitaAuthenticationService: BonitaAuthenticationService) { }
+    private bonitaAuthenticationService: BonitaAuthenticationService,
+    private carritoCompraService: CarritoCompraService) { }
 
   public logIn(loginUser: LoginUser): Promise<Usuario> {
     const promise = new Promise<Usuario>((resolve, reject) => {
@@ -27,11 +29,14 @@ export class LoginService {
       this.http.get<Usuario[]>(this.configService.Config.usersUrl, options).toPromise().then(
         usuarios => {
           this.sessionService.currentUser = usuarios[0];
-          this.bonitaAuthenticationService.logIn().then(
-            token => {
-              this.sessionService.currentBonitaApiToken = token;
-              resolve(usuarios[0]);
-            });
+          if (this.sessionService.currentUser) {
+            this.sessionService.currentCart = this.carritoCompraService.nuevoCarrito();
+            this.bonitaAuthenticationService.logIn().then(
+              token => {
+                this.sessionService.currentBonitaApiToken = token;
+                resolve(usuarios[0]);
+              });
+          }
         },
         err => { reject(err); }
       );

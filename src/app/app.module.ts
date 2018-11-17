@@ -9,6 +9,9 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { ConfigService } from './config/config.service';
 import { ListadoProductosComponent } from './productos/listado-productos/listado-productos.component';
 import { CookieService } from 'ngx-cookie-service';
+import { VentasLayoutComponent } from './ventas-layout/ventas-layout.component';
+import { VentasHeaderComponent } from './ventas-header/ventas-header.component';
+import { FooterComponent } from './footer/footer.component';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -18,7 +21,10 @@ export function get_Config(configService: ConfigService) {
   declarations: [
     AppComponent,
     LoginFormComponent,
-    ListadoProductosComponent
+    ListadoProductosComponent,
+    VentasLayoutComponent,
+    VentasHeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

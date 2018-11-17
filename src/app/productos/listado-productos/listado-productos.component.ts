@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from '../producto.model';
-import { SessionService } from 'src/app/storage/session.service';
+import { SessionService } from 'src/app/session/session.service';
 import { BonitaCaseService } from 'src/app/bonita/case/bonita-case.service';
 import { BonitaHumanTaskService } from 'src/app/bonita/human-task/bonita-human-task.service';
 import { ProductosService } from '../productos.service';
+import { CarritoCompraService } from 'src/app/carrito-compra/carrito-compra.service';
 
 @Component({
   selector: 'app-listado-productos',
@@ -13,14 +14,18 @@ import { ProductosService } from '../productos.service';
 export class ListadoProductosComponent implements OnInit {
 
   productos: Producto[];
-  // caseId: string;
-  mensajeError: string;
+  errorFatal: string;
+  mensajeProducto: string;
+  mensajeProductoRef: number;
+  mensajeProductotipo: 'error' | 'info';
+  modoLista: boolean;
 
   constructor(
     private sessionService: SessionService,
     private bonitaCaseService: BonitaCaseService,
     private bonitaHumantaskService: BonitaHumanTaskService,
-    private productosService: ProductosService
+    private productosService: ProductosService,
+    private carritoCompraService: CarritoCompraService
     ) { }
 
   ngOnInit() {
@@ -34,11 +39,33 @@ export class ListadoProductosComponent implements OnInit {
               res => { this.productos = res; }
             );
           },
-          error => { this.mensajeError = error; }
+          error => { this.errorFatal = error; }
         );
       });
     } else {
       this.productos = this.sessionService.currentProducts;
     }
+  }
+
+  public showList() {
+    this.modoLista = true;
+  }
+
+  public showGrid() {
+    this.modoLista = false;
+  }
+
+  public addToCart(producto: Producto) {
+    this.carritoCompraService.agregarProducto(producto, 1)
+      .then(res => {
+        this.mensajeProducto = 'El producto fue agregado al carrito';
+        this.mensajeProductoRef = producto.id;
+        this.mensajeProductotipo = 'info';
+      })
+      .catch(error => {
+        this.mensajeProducto = error;
+        this.mensajeProductoRef = producto.id;
+        this.mensajeProductotipo = 'error';
+      });
   }
 }

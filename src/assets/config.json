@@ -24,6 +24,7 @@
         "currentBonitaApiToken": "currentBonitaApiToken",
         "currentCaseId": "currentCaseId",
         "currentTaskId": "currentTaskId",
-        "currentProducts": "currentProducts"              
+        "currentProducts": "currentProducts",
+        "currentCart": "currentCart"
     }
 }

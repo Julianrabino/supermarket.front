@@ -25,5 +25,6 @@ export interface Config {
       currentCaseId: string;
       currentTaskId: string;
       currentProducts: string;
+      currentCart: string;
     };
   }

@@ -4,6 +4,7 @@ import { ConfigService } from '../config/config.service';
 import { BonitaCase } from '../bonita/case/bonita-case.model';
 import { BonitaActivity } from '../bonita/bonita-shared.model';
 import { Producto } from '../productos/producto.model';
+import { CarritoCompra } from '../carrito-compra/carrito-compra.model';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,7 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentCaseId, caso);
   }
 
+  // Products
   get currentProducts(): Producto[] {
     return this.get(this.configService.Config.sessionKeys.currentProducts);
   }
@@ -66,11 +68,21 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentProducts, products);
   }
 
+  // CarritoCompra
+  get currentCart(): CarritoCompra {
+    return this.get(this.configService.Config.sessionKeys.currentCart);
+  }
+
+  set currentCart(cart: CarritoCompra) {
+    this.set(this.configService.Config.sessionKeys.currentCart, cart);
+  }
+
   public clean(): void {
     this.currentActivity = null;
     this.currentBonitaApiToken = null;
     this.currentCase = null;
     this.currentUser = null;
     this.currentProducts = null;
+    this.currentCart = null;
   }
 }
