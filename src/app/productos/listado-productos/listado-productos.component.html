@@ -29,13 +29,13 @@
                           <p class="lead">
                               ${{producto.precioVenta}}</p>
                       </div>
-                      <div class="col-xs-12 col-md-6">
+                      <div class="col-xs-12 col-md-6 text-light">
                           <a class="btn btn-success" (click)="addToCart(producto);">Add to cart</a>
                       </div>
                   </div>
-                  <div *ngIf="mensajeProducto && mensajeProductoRef===producto.id" class="alert" 
-                    [ngClass]="{'alert-success': mensajeProductotipo==='info', 'alert-danger': mensajeProductotipo==='error'}">
-                      {{mensajeProducto}}
+                  <div *ngIf="mensajeUi && mensajeUi.RefId===producto.id" class="alert" 
+                    [ngClass]="{'alert-success': mensajeUi.Tipo==='info', 'alert-danger': mensajeUi.Tipo==='error'}">
+                      {{mensajeUi.Texto}}
                     </div>
               </div>
           </div>

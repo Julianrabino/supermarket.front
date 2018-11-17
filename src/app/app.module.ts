@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { VentasLayoutComponent } from './ventas-layout/ventas-layout.component';
 import { VentasHeaderComponent } from './ventas-header/ventas-header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CarritoCompraComponent } from './carrito-compra/carrito-compra.component';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -24,7 +25,8 @@ export function get_Config(configService: ConfigService) {
     ListadoProductosComponent,
     VentasLayoutComponent,
     VentasHeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CarritoCompraComponent
   ],
   imports: [
     BrowserModule,

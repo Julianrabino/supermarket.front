@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../../config/config.service';
-import { SessionService } from '../../storage/session.service';
+import { SessionService } from '../../session/session.service';
 import { BonitaVariable, BonitaActivity } from '../bonita-shared.model';
 import { BonitaHumanTask } from './bonita-human-task.model';
 

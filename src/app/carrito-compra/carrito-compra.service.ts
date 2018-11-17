@@ -12,8 +12,8 @@ export class CarritoCompraService {
     private sessionService: SessionService
   ) { }
 
-  public agregarProducto(producto: Producto, cantidad: number): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
+  public agregarProducto(producto: Producto, cantidad: number): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
       const carrito = this.sessionService.currentCart;
       if (!carrito) {
         reject('No existe un carrito activo');
@@ -23,7 +23,7 @@ export class CarritoCompraService {
         if (compraProductoIndex === -1) {
           compraProducto = new CompraProducto();
         } else {
-          compraProducto = carrito.Productos.find(p => p.Producto.id === producto.id);
+          compraProducto = carrito.Productos[compraProductoIndex];
         }
 
         if ((cantidad + compraProducto.Cantidad) > producto.stock) {
@@ -38,7 +38,30 @@ export class CarritoCompraService {
             carrito.Productos[compraProductoIndex] = compraProducto;
           }
           this.sessionService.currentCart = carrito;
-          resolve(true);
+          resolve('Se agregó el producto correctamente');
+        }
+      }
+    });
+  }
+
+  public eliminarProducto(producto: Producto,  cantidad: number): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const carrito = this.sessionService.currentCart;
+      if (!carrito) {
+        reject('No existe un carrito activo');
+      } else {
+        const compraProductoIndex = carrito.Productos.findIndex(p => p.Producto.id === producto.id);
+        if (compraProductoIndex === -1) {
+          reject('No exite el producto en el carrito');
+        } else {
+          const compraProducto = carrito.Productos[compraProductoIndex];
+          if ((compraProducto.Cantidad - cantidad) <= 0) {
+            carrito.Productos.splice(compraProductoIndex, 1);
+          } else {
+            compraProducto.Cantidad -= cantidad;
+          }
+          this.sessionService.currentCart = carrito;
+          resolve('Se eliminó el producto correctamente');
         }
       }
     });

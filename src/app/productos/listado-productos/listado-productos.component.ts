@@ -5,6 +5,7 @@ import { BonitaCaseService } from 'src/app/bonita/case/bonita-case.service';
 import { BonitaHumanTaskService } from 'src/app/bonita/human-task/bonita-human-task.service';
 import { ProductosService } from '../productos.service';
 import { CarritoCompraService } from 'src/app/carrito-compra/carrito-compra.service';
+import { MensajeUi } from 'src/app/shared/mensaje-ui.model';
 
 @Component({
   selector: 'app-listado-productos',
@@ -15,9 +16,7 @@ export class ListadoProductosComponent implements OnInit {
 
   productos: Producto[];
   errorFatal: string;
-  mensajeProducto: string;
-  mensajeProductoRef: number;
-  mensajeProductotipo: 'error' | 'info';
+  mensajeUi: MensajeUi;
   modoLista: boolean;
 
   constructor(
@@ -58,14 +57,10 @@ export class ListadoProductosComponent implements OnInit {
   public addToCart(producto: Producto) {
     this.carritoCompraService.agregarProducto(producto, 1)
       .then(res => {
-        this.mensajeProducto = 'El producto fue agregado al carrito';
-        this.mensajeProductoRef = producto.id;
-        this.mensajeProductotipo = 'info';
+        this.mensajeUi = new MensajeUi('El producto fue agregado al carrito', producto.id, 'info');
       })
       .catch(error => {
-        this.mensajeProducto = error;
-        this.mensajeProductoRef = producto.id;
-        this.mensajeProductotipo = 'error';
+        this.mensajeUi = new MensajeUi(error, producto.id, 'error');
       });
   }
 }

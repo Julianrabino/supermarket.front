@@ -1,0 +1,65 @@
+<app-ventas-layout>
+    <div class="container">
+        <div class="card shopping-cart">
+              <div class="card-header bg-light text-dark">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                  Detalle de compra
+                  <a href="/productos" class="btn btn-outline-info btn-sm pull-right">Continuar Comprando</a>
+                  <div class="clearfix"></div>
+              </div>
+              <div class="card-body">
+                      <!-- PRODUCT -->
+                      <ng-container *ngFor="let compraProducto of productos; let last = last">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-2 text-center">
+                                    <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
+                            </div>
+                            <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                                <h4 class="product-name"><strong>{{compraProducto.Producto.name}}</strong></h4>
+                                <h4>
+                                    <small>Product description</small>
+                                </h4>
+                            </div>
+                            <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                                <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                    <h6><strong>${{compraProducto.Producto.precioVenta}} <span class="text-muted">x</span></strong></h6>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4">
+                                    <div class="quantity">
+                                        <input type="button" value="+" class="plus" (click)="incrementarProducto(compraProducto)">
+                                        <input type="number" step="1" max="{{compraProducto.Producto.stock}}" min="1" [ngModel]="compraProducto.Cantidad" title="Qty" class="qty"
+                                              size="4" readonly>
+                                        <input type="button" value="-" class="minus" (click)="decrementarProducto(compraProducto)">
+                                    </div>
+                                </div>
+                                <div class="col-2 col-sm-2 col-md-2 text-right">
+                                    <button type="button" class="btn btn-outline-danger btn-xs" (click)="eliminarProducto(compraProducto)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr *ngIf="!last">
+                      </ng-container>                      
+              </div>
+              <div class="card-footer">
+                  <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
+                      <div class="row">
+                          <div class="col-6">
+                              <input type="text" class="form-control" placeholder="cupone code">
+                          </div>
+                          <div class="col-6">
+                              <input type="submit" class="btn btn-default" value="Use cupone">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="pull-right" style="margin: 10px">
+                      <a href="" class="btn btn-success pull-right">Confirmar Compra</a>
+                      <div class="pull-right" style="margin: 5px">
+                          Total price: <b>${{ObtenerTotal()}}</b>
+                      </div>
+                  </div>
+              </div>
+          </div>
+     </div>
+</app-ventas-layout>
