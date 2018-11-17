@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { SessionService } from '../session/session.service';
 import { CompraProducto, CarritoCompra } from './carrito-compra.model';
 import { MensajeUi } from '../shared/mensaje-ui.model';
@@ -93,5 +93,44 @@ export class CarritoCompraComponent implements OnInit {
       result += compraProducto.Cantidad * compraProducto.Producto.precioVenta;
     });
     return result;
+  }
+
+  public asociarCupon(numeroCupon: number, productoSeleccionado: number) {
+    if (numeroCupon === 0 || isNaN(numeroCupon)) {
+      this.modalError('Número de cupón incorrecto');
+    } else if (productoSeleccionado === -1) {
+      this.modalError('Debe indicar un producto');
+    } else {
+      this.carritoCompraService.asociarCupon(numeroCupon, productoSeleccionado)
+        .then(() => {
+          this.productos = this.sessionService.currentCart.Productos;
+        })
+        .catch(error => { this.modalError(error); });
+    }
+  }
+
+  public desasociarCupon(numeroCupon: number) {
+    this.carritoCompraService.desasociarCupon(numeroCupon)
+      .then(() => this.productos = this.sessionService.currentCart.Productos)
+      .catch(error => { this.modalError(error); });
+  }
+
+  private modalError(mensaje: string) {
+    this.modalService.openDialog(this.viewRef, {
+      title: 'Error',
+      childComponent: SimpleModalComponent,
+      data: {
+        text: mensaje
+      },
+      settings: {
+        closeButtonClass: 'close theme-icon-close'
+      },
+      actionButtons: [
+        {
+          text: 'De acuerdo',
+          buttonClass: 'btn btn-danger'
+        }
+      ]
+    });
   }
 }

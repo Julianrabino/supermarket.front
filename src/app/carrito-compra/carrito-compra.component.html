@@ -38,22 +38,39 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6" style="margin-top: 10px">
+                                <div class="tag_list_wrapper">
+                                    <ng-container *ngFor="let cupon of compraProducto.Cupones; let lastCupon = last; let firstCupon = first">
+                                        <div class="tag_list">Cupón Nro. {{cupon}}<span (click)="desasociarCupon(cupon)" clickable>x</span></div>
+                                    </ng-container>
+                                    
+                                    <!-- <ng-container *ngFor="let cupon of compraProducto.Cupones; let lastCupon = last; let firstCupon = first">
+                                        <span *ngIf="firstCupon">Cupones: </span><span (click)="desasociarCupon(cupon)" clickable>{{cupon}}</span><span *ngIf="!lastCupon">, </span>
+                                    </ng-container> -->
+                                </div>
+                            </div>
                         </div>
                         <hr *ngIf="!last">
                       </ng-container>                      
               </div>
               <div class="card-footer">
-                  <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
+                  <div class="coupon col-md-7 col-sm-7 no-padding-left pull-left">
                       <div class="row">
-                          <div class="col-6">
-                              <input type="text" class="form-control" placeholder="cupone code">
+                          <div class="col-4">
+                              <input type="text" class="form-control" placeholder="cupón" #inputCupon>
                           </div>
-                          <div class="col-6">
-                              <input type="submit" class="btn btn-default" value="Use cupone">
+                          <div class="input-group col-8">
+                            <select class="custom-select" id="inputGroupSelect04" #inputCuponProducto>
+                              <option selected value="-1">Elegir producto...</option>}
+                              <option *ngFor="let compraProducto of productos" [value]="compraProducto.Producto.id">{{compraProducto.Producto.name}}</option>
+                            </select>
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary" type="button" (click)="asociarCupon(+inputCupon.value, +inputCuponProducto.value); inputCupon.value = '';">Aplicar</button>
+                            </div>
                           </div>
-                      </div>
+                      </div>                      
                   </div>
-                  <div class="pull-right" style="margin: 10px">
+                  <div class="pull-right">
                       <a href="" class="btn btn-success pull-right">Confirmar Compra</a>
                       <div class="pull-right" style="margin: 5px">
                           Total price: <b>${{ObtenerTotal()}}</b>

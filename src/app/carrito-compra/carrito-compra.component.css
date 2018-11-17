@@ -64,3 +64,23 @@
 .shopping-cart {
     margin-top: 20px;
 }
+
+.tag_list {
+    display: inline-block;
+    vertical-align: top;
+    background: #f7f7f7;
+    border-radius: 20px;
+    margin: 5px;
+    padding: 5px 25px 5px 5px;
+    border: 1px solid #d6d6d6;
+    position: relative;
+}
+.tag_list.tag_list_hide{
+    display: none;
+}
+.tag_list span {
+    position: absolute;
+    right: 8px;
+    top: 3px;
+    cursor: pointer;
+}

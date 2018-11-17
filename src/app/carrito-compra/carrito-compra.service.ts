@@ -52,13 +52,16 @@ export class CarritoCompraService {
       } else {
         const compraProductoIndex = carrito.Productos.findIndex(p => p.Producto.id === producto.id);
         if (compraProductoIndex === -1) {
-          reject('No exite el producto en el carrito');
+          reject('No existe el producto en el carrito');
         } else {
           const compraProducto = carrito.Productos[compraProductoIndex];
           if ((compraProducto.Cantidad - cantidad) <= 0) {
             carrito.Productos.splice(compraProductoIndex, 1);
           } else {
             compraProducto.Cantidad -= cantidad;
+            if (compraProducto.Cantidad < compraProducto.Cupones.length) {
+              compraProducto.Cupones.pop();
+            }
           }
           this.sessionService.currentCart = carrito;
           resolve('Se eliminó el producto correctamente');
@@ -69,5 +72,52 @@ export class CarritoCompraService {
 
   public nuevoCarrito(): CarritoCompra {
     return new CarritoCompra();
+  }
+
+  public asociarCupon(numeroCupon: number, productId: number): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const carrito = this.sessionService.currentCart;
+      if (!carrito) {
+        reject('No existe un carrito activo');
+      } else {
+        const compraProductoIndex = carrito.Productos.findIndex(p => p.Producto.id === productId);
+        if (compraProductoIndex === -1) {
+          reject('No existe el producto en el carrito');
+        } else {
+          const compraProducto = carrito.Productos[compraProductoIndex];
+          if (compraProducto.Cupones.length < compraProducto.Cantidad) {
+            const cuponIndex = carrito.Productos.findIndex(p => p.Cupones.includes(numeroCupon));
+            if (cuponIndex === -1) {
+              compraProducto.Cupones.push(numeroCupon);
+            } else {
+              reject('Un cupón solo puede ser utilizado una vez');
+            }
+          } else {
+            reject('Solo se puede usar un copón por producto comprado');
+          }
+          this.sessionService.currentCart = carrito;
+          resolve('Cupón agreado correctamente');
+        }
+      }
+    });
+  }
+
+  public desasociarCupon(numeroCupon: number): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const carrito = this.sessionService.currentCart;
+      if (!carrito) {
+        reject('No existe un carrito activo');
+      } else {
+        const compraProductoIndex = carrito.Productos.findIndex(p => p.Cupones.includes(numeroCupon));
+        if (compraProductoIndex === -1) {
+          reject('No existe el cupón');
+        } else {
+          const cuponIndex = carrito.Productos[compraProductoIndex].Cupones.findIndex(c => c === numeroCupon);
+          carrito.Productos[compraProductoIndex].Cupones.splice(cuponIndex, 1);
+          this.sessionService.currentCart = carrito;
+          resolve('Cupón eliminado correctamente');
+        }
+      }
+    });
   }
 }
