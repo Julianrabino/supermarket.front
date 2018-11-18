@@ -12,12 +12,23 @@
         },
         "variables": {
             "nroDocumento": "p_nroDocumento",
-            "productos": "p_resultJson"
+            "productos": "p_resultJson",
+            "productIdCompra": "p_productIdCompra",
+            "cuponCompra": "p_cuponCompra",
+            "finCompra": "p_finCompra",
+            "ventaId": "p_uuid"
+        },
+        "tasks": {
+            "iniciarCompra": "IniciarCompra",
+            "finalizarCompra": "FinalizarCompra"
         },
         "processDefinitionId": "4716364679625175056",
         "loginUsername": "customer",
         "loginPassword": "123",
-        "apiTokenHeader": "X-Bonita-API-Token"
+        "apiTokenHeader": "X-Bonita-API-Token",
+        "humanTaskAssignedId": "101",
+        "cantidadIntentosPolling": 20,
+        "msDelayPolling": 500
     },    
     "sessionKeys": {
         "currentUser": "currentUser",

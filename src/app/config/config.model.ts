@@ -13,11 +13,22 @@ export interface Config {
       variables: {
           nroDocumento: string;
           productos: string;
+          productIdCompra: string;
+          cuponCompra: string;
+          finCompra: string;
+          ventaId: string;
+      },
+      tasks: {
+        iniciarCompra: string;
+        finalizarCompra: string;
       },
       processDefinitionId: string;
       loginUsername: string;
       loginPassword: string;
       apiTokenHeader: string;
+      humanTaskAssignedId: string;
+      cantidadIntentosPolling: number;
+      msDelayPolling: number;
     };
     sessionKeys: {
       currentUser: string;

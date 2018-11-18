@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../../config/config.service';
 import { SessionService } from '../../session/session.service';
-import { BonitaVariable, BonitaActivity } from '../bonita-shared.model';
-import { BonitaHumanTask } from './bonita-human-task.model';
+import { BonitaActivity } from '../bonita-shared.model';
+import { BonitaHumanTask, BonitaHumanTaskSetState } from './bonita-human-task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,41 +19,16 @@ export class BonitaHumanTaskService {
       this.apiUrl = this.configService.Config.bonita.urls.humanTasks;
   }
 
-  // public async whaitFor(name: string): Promise<BonitaActivity> {
-  //   const promise = new Promise<BonitaHumanTask>((resolve, reject) => {
-  //     let cantidadIntentos = 5;
-  //     let fin = false;
-  //     while (!fin && cantidadIntentos > 0) {
-  //       await this.getCurrent().then(
-  //         task => {
-  //           if (task.name === name) {
-  //             fin = true;
-  //             resolve(task);
-  //           } else {
-  //             cantidadIntentos--;
-  //           }
-  //         },
-  //         error => {
-  //           fin = true;
-  //           reject(error);
-  //         }
-  //       );
-  //     }
-  //     if (!fin) { reject('No se encontró la tarea ' +  name); }
-  //   });
-  //   return promise;
-  // }
-
   async delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
-  public async whaitFor(name: string): Promise<BonitaActivity> {
+  public async whaitFor(caseId: string, name: string): Promise<BonitaActivity> {
     let result;
-    let cantidadIntentos = 10;
+    let cantidadIntentos = this.configService.Config.bonita.cantidadIntentosPolling;
     let fin = false;
     while (!fin && cantidadIntentos > 0) {
-      await this.getCurrent().then(
+      await this.getCurrent(caseId).then(
         task => {
           if (task && (task.name === name)) {
             result = task;
@@ -67,18 +42,18 @@ export class BonitaHumanTaskService {
         }
       );
       if (!result) {
-        await this.delay(500);
+        await this.delay(this.configService.Config.bonita.msDelayPolling);
       }
     }
     return result;
   }
 
-  public getCurrent(): Promise<BonitaHumanTask> {
+  public getCurrent(caseId: string): Promise<BonitaHumanTask> {
     const promise = new Promise<BonitaHumanTask>((resolve, reject) => {
       const headers: HttpHeaders = new HttpHeaders().set(
         this.configService.Config.bonita.apiTokenHeader,
         this.sessionService.currentBonitaApiToken);
-      const params = '?p=0&c=10&f=rootCaseId=' + this.sessionService.currentCase.id;
+      const params = '?p=0&c=10&f=rootCaseId=' + caseId;
       this.http.get<BonitaHumanTask[]>(this.apiUrl + params, { headers: headers }).toPromise().then(
           resp => {
             resolve(resp[0]);
@@ -95,5 +70,22 @@ export class BonitaHumanTaskService {
       );
     });
     return promise;
+  }
+
+  public complete(taskId: number): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders()
+        .set(
+          this.configService.Config.bonita.apiTokenHeader,
+          this.sessionService.currentBonitaApiToken)
+        .set('Content-Type', 'application/json');
+
+      const params = '/' + taskId;
+      const body = new BonitaHumanTaskSetState(this.configService.Config.bonita.humanTaskAssignedId, 'completed');
+      this.http.put(this.apiUrl + params, body, { headers: headers }).toPromise().then(
+        res => resolve('OK'),
+        error => reject(error)
+      );
+    });
   }
 }

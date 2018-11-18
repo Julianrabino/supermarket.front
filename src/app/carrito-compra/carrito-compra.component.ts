@@ -133,4 +133,36 @@ export class CarritoCompraComponent implements OnInit {
       ]
     });
   }
+
+  public confirmarCompra() {
+    this.modalService.openDialog(this.viewRef, {
+      title: 'Confirmación',
+      childComponent: SimpleModalComponent,
+      data: {
+        text: '¿Está seguro que desea confirmar la compra?'
+      },
+      settings: {
+        closeButtonClass: 'close theme-icon-close'
+      },
+      actionButtons: [
+        {
+          text: 'Si!',
+          buttonClass: 'btn btn-success',
+          onAction: () => new Promise((resolve: any) => {
+            this.efectuarCompra();
+            resolve();
+          })
+        },
+        {
+          text: 'No',
+          buttonClass: 'btn btn-danger'
+        }
+      ]
+    });
+  }
+
+  private efectuarCompra() {
+    this.carritoCompraService.efectuarCompra().then(
+      resp => { alert(resp); });
+  }
 }

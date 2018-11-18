@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../../config/config.service';
 import { SessionService } from '../../session/session.service';
-import { BonitaVariable, BonitaVariableData } from '../bonita-shared.model';
-import { BonitaCase } from './bonita-case.model';
+import { BonitaCase, BonitaVariableType, BonitaVariableSet, BonitaVariableStart, BonitaVariableData } from './bonita-case.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class BonitaCaseService {
       this.apiUrl = this.configService.Config.bonita.urls.cases;
   }
 
-  public start(): Promise<string> {
-    const promise = new Promise<string>((resolve, reject) => {
+  public start(): Promise<BonitaCase> {
+    const promise = new Promise<BonitaCase>((resolve, reject) => {
       const headers: HttpHeaders = new HttpHeaders().set(
         this.configService.Config.bonita.apiTokenHeader,
         this.sessionService.currentBonitaApiToken)
@@ -28,7 +27,7 @@ export class BonitaCaseService {
 
       const body = {
         processDefinitionId: this.configService.Config.bonita.processDefinitionId,
-        variables: [ new BonitaVariable(this.configService.Config.bonita.variables.nroDocumento,
+        variables: [ new BonitaVariableStart(this.configService.Config.bonita.variables.nroDocumento,
           this.sessionService.currentUser.numeroDocumento) ]
       };
 
@@ -36,8 +35,7 @@ export class BonitaCaseService {
         { headers: headers })
         .toPromise().then(
           resp => {
-            this.sessionService.currentCase = resp;
-            resolve(resp.rootCaseId);
+            resolve(resp);
           },
           err => { reject(err); }
       );
@@ -60,5 +58,25 @@ export class BonitaCaseService {
       );
     });
     return promise;
+  }
+
+  public setCaseVariable(caseId: string, variableName: string, value: any, variableType: BonitaVariableType): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders()
+        .set(this.configService.Config.bonita.apiTokenHeader,
+          this.sessionService.currentBonitaApiToken)
+        .set('Content-Type', 'application/json');
+
+      const body = new BonitaVariableSet(value, variableType);
+
+      const params = '/' + caseId + '/' + variableName;
+      this.http.put(this.configService.Config.bonita.urls.caseVariable + params, body,
+        { headers: headers }).toPromise().then(
+          resp => {
+            resolve('OK');
+          },
+          err => { reject(err); }
+      );
+    });
   }
 }

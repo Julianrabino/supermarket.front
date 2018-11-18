@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { SessionService } from '../session/session.service';
 import { Producto } from '../productos/producto.model';
 import { CompraProducto, CarritoCompra } from './carrito-compra.model';
+import { BonitaCaseService } from '../bonita/case/bonita-case.service';
+import { BonitaHumanTaskService } from '../bonita/human-task/bonita-human-task.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,10 @@ import { CompraProducto, CarritoCompra } from './carrito-compra.model';
 export class CarritoCompraService {
 
   constructor(
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private bonitaCaseService: BonitaCaseService,
+    private bonitaHumanTaskService: BonitaHumanTaskService,
+    private configService: ConfigService
   ) { }
 
   public agregarProducto(producto: Producto, cantidad: number): Promise<string> {
@@ -119,5 +125,59 @@ export class CarritoCompraService {
         }
       }
     });
+  }
+
+  public async efectuarCompra(): Promise<string> {
+    // return new Promise<string>((resolve, reject) => {
+      let result;
+      let taskId;
+      const carrito = this.sessionService.currentCart;
+      if (!carrito) {
+        result =  'No existe un carrito activo';
+      } else {
+        const caseId = this.sessionService.currentCase.id;
+        for (let productoIndex = 0; productoIndex < carrito.Productos.length; productoIndex++) {
+          const compraProducto = carrito.Productos[productoIndex];
+
+          // ProductId
+          await this.bonitaCaseService.setCaseVariable(
+            caseId, this.configService.Config.bonita.variables.productIdCompra,
+            compraProducto.Producto.id, 'java.lang.Long');
+          for (let i = 0; i < compraProducto.Cantidad; i++) {
+
+            // NroCupon
+            await this.bonitaCaseService.setCaseVariable(
+              caseId, this.configService.Config.bonita.variables.cuponCompra,
+              (i < compraProducto.Cupones.length) ? compraProducto.Cupones[i] : 0,
+              'java.lang.Long');
+
+            // Espera poder iniciar la compra (en la primera ya debería estar ready)
+            await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.iniciarCompra)
+              .then(actitivy =>  taskId = actitivy.id);
+            // Inicia la compra
+            await this.bonitaHumanTaskService.complete(taskId);
+
+            // Espera poder finalizar la compra
+            await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.finalizarCompra)
+              .then(actitivy =>  taskId = actitivy.id);
+            // Finaliza la compra
+            await this.bonitaHumanTaskService.complete(taskId);
+
+            // Espera poder inciar la nueva compra (antes de setear los nuevos valores de las variables)
+            await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.iniciarCompra)
+              .then(actitivy =>  taskId = actitivy.id);
+          }
+        }
+
+        await this.bonitaCaseService.getCaseVariable(caseId, this.configService.Config.bonita.variables.ventaId)
+          .then(resp => result = resp);
+
+        // Se finaliza toda la venta
+        await this.bonitaCaseService.setCaseVariable(
+            caseId, this.configService.Config.bonita.variables.finCompra,
+            true, 'java.lang.Boolean');
+        await this.bonitaHumanTaskService.complete(taskId);
+      }
+      return result;
   }
 }
