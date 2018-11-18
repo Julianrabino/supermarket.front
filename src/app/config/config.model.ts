@@ -29,6 +29,7 @@ export interface Config {
       humanTaskAssignedId: string;
       cantidadIntentosPolling: number;
       msDelayPolling: number;
+      cantidadElementosPagina: number;
     };
     sessionKeys: {
       currentUser: string;

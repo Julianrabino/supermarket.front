@@ -27,7 +27,7 @@
                   <div class="row">
                       <div class="col-xs-12 col-md-6">
                           <p class="lead">
-                              ${{producto.precioVenta}}</p>
+                              {{producto.precioVenta | currency}}</p>
                       </div>
                       <div class="col-xs-12 col-md-6 text-light">
                           <a class="btn btn-success" (click)="addToCart(producto);">Comprar <i class="fa fa-shopping-cart"></i></a>

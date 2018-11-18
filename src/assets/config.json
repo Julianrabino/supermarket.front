@@ -22,13 +22,14 @@
             "iniciarCompra": "IniciarCompra",
             "finalizarCompra": "FinalizarCompra"
         },
-        "processDefinitionId": "4716364679625175056",
+        "processDefinitionId": "4664483923677369977",
         "loginUsername": "customer",
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token",
         "humanTaskAssignedId": "101",
         "cantidadIntentosPolling": 20,
-        "msDelayPolling": 500
+        "msDelayPolling": 500,
+        "cantidadElementosPagina": 100
     },    
     "sessionKeys": {
         "currentUser": "currentUser",

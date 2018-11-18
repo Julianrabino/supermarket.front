@@ -1,5 +1,63 @@
 <app-ventas-layout>
-    <p>
-        resumen-venta works!
-    </p>
+    <div *ngIf="venta" class="container">
+        <!-- <div class="row">
+            <div class="col-xs-12">
+            <div class="invoice-title">
+              <h2>Nro. Venta</h2><h5 class="text-right">123</h5>
+            </div>
+          </div>
+        </div> -->
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title"><strong>Detalle de venta</strong></h3>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                          <td><strong>Producto</strong></td>
+                          <td class="text-center"><strong>Precio original</strong></td>
+                          <td class="text-center"><strong>Cupón</strong></td>
+                          <td class="text-center"><strong>Precio aplicado</strong></td>
+                          <td class="text-center"><strong>Cantidad</strong></td>
+                          <td class="text-right"><strong>Totales</strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let itemVenta of venta.Items" [class]="{'invalid': !itemVenta.VentaExitosa }">
+                        <td>{{itemVenta.ProductName}}</td>
+                        <td class="text-center">{{itemVenta.PrecioVentaOriginal | currency }}</td>
+                        <td class="text-center">{{itemVenta.NroCupon}} <span *ngIf="itemVenta.NroCupon && !itemVenta.CuponValido"> (inválido)</span></td>
+                        <td class="text-center">{{itemVenta.PrecioVentaEfectivo | currency }}</td>
+                        <td class="text-center">{{itemVenta.Cantidad}}</td>
+                        <td class="text-right">{{itemVenta.MontoTotal | currency }}</td>
+                      </tr>
+                      <tr>
+                        <td class="thick-line"></td>
+                        <td class="thick-line"></td>
+                        <td class="thick-line"></td>
+                        <td class="thick-line"></td>
+                        <td class="thick-line"></td>
+                        <td class="thick-line"></td>
+                      </tr>
+                      <tr>
+                        <td class="no-line"></td>
+                        <td class="no-line"></td>
+                        <td class="no-line"></td>
+                        <td class="no-line"></td>
+                        <td class="no-line text-center"><strong>Total</strong></td>
+                        <td class="no-line text-right">{{venta.MontoTotal | currency }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
 </app-ventas-layout>
