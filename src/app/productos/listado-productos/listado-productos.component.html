@@ -27,7 +27,8 @@
       <div *ngFor="let producto of productos" class="item col-xs-4 col-lg-4" [ngClass]="{'list-group-item': modoLista, 'grid-group-item': !modoLista}">
           <div class="thumbnail card">
               <div class="img-event">
-                  <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                  <img class="group list-group-image" [ngClass]="{'img-fluid': modoLista, 'img-responsive': !modoLista}"
+                    height="250" width="350" src="assets/img/products/{{producto.id}}.png" alt="" />
               </div>
               <div class="caption card-body">
                   <h4 class="group card-title inner list-group-item-heading">
