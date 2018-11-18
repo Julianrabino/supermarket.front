@@ -15,6 +15,7 @@ export class CarritoCompraComponent implements OnInit {
 
   productos: CompraProducto[];
   mensajeUi: MensajeUi;
+  efectuandoCompra: boolean;
 
   constructor(
     private sessionService: SessionService,
@@ -164,8 +165,10 @@ export class CarritoCompraComponent implements OnInit {
   }
 
   private efectuarCompra() {
+    this.efectuandoCompra = true;
     this.carritoCompraService.efectuarCompra().then(
       ventaId => {
+        this.efectuandoCompra = false;
         this.router.navigate(['/resumenVenta']);
       });
   }

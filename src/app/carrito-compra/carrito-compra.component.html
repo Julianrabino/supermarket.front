@@ -1,5 +1,19 @@
 <app-ventas-layout>
-    <div class="container">
+    <div class="container" *ngIf="efectuandoCompra">
+        <div class="col-12 col-sm-12 col-md-12 text-center">
+            <h4 style="color: grey">Efectuando compra!!</h4>
+        </div>
+        <div id="circle">
+            <div class="loader">
+            </div>
+        </div> 
+    </div>
+    <div class="container" *ngIf="!efectuandoCompra && productos.length === 0">
+        <div class="col-12 col-sm-12 col-md-12 text-center">
+            <h4 style="color: grey">No hay productos en el carrito</h4>
+        </div>
+    </div>
+    <div class="container" *ngIf="!efectuandoCompra && productos.length > 0">
         <div class="card shopping-cart">
               <div class="card-header bg-light text-dark">
                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -74,5 +88,5 @@
                   </div>
               </div>
           </div>
-     </div>
+    </div>
 </app-ventas-layout>
