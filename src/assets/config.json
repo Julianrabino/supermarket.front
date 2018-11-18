@@ -27,7 +27,7 @@
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token",
         "humanTaskAssignedId": "101",
-        "cantidadIntentosPolling": 20,
+        "cantidadIntentosPolling": 25,
         "msDelayPolling": 500,
         "cantidadElementosPagina": 100
     },    
@@ -37,6 +37,7 @@
         "currentCaseId": "currentCaseId",
         "currentTaskId": "currentTaskId",
         "currentProducts": "currentProducts",
-        "currentCart": "currentCart"
+        "currentCart": "currentCart",
+        "currentVenta": "currentVenta"
     }
 }

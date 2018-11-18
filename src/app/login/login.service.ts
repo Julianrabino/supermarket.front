@@ -1,11 +1,11 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoginUser } from './login-user.model';
 import { ConfigService } from '../config/config.service';
 import { Usuario } from './usuario.model';
 import { SessionService } from '../session/session.service';
 import { BonitaAuthenticationService } from '../bonita/authentication/bonita-authentication.service';
-import { CarritoCompraService } from '../carrito-compra/carrito-compra.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,8 @@ export class LoginService {
     private configService: ConfigService,
     private sessionService: SessionService,
     private bonitaAuthenticationService: BonitaAuthenticationService,
-    private carritoCompraService: CarritoCompraService) { }
+    private router: Router
+  ) { }
 
   public logIn(loginUser: LoginUser): Promise<Usuario> {
     const promise = new Promise<Usuario>((resolve, reject) => {
@@ -30,7 +31,6 @@ export class LoginService {
         usuarios => {
           this.sessionService.currentUser = usuarios[0];
           if (this.sessionService.currentUser) {
-            this.sessionService.currentCart = this.carritoCompraService.nuevoCarrito();
             this.bonitaAuthenticationService.logIn().then(
               token => {
                 this.sessionService.currentBonitaApiToken = token;
@@ -46,15 +46,17 @@ export class LoginService {
     return promise;
   }
 
-  public logOut(): Promise<boolean> {
-    const promise = new Promise<boolean>((resolve, reject) => {
+  public logOut() {
+  // public logOut(): Promise<boolean> {
+    // const promise = new Promise<boolean>((resolve, reject) => {
         this.bonitaAuthenticationService.logOut().then(
           res => {
             this.sessionService.clean();
-            resolve(true);
+            this.router.navigate(['/login']);
+            // resolve(true);
           });
-      });
-    return promise;
+    // });
+    // return promise;
   }
 
   public GetCurrentUser(): Promise<Usuario> {

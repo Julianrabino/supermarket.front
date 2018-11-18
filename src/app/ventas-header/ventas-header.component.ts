@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../session/session.service';
+import { Producto } from '../productos/producto.model';
+import { CarritoCompra } from '../carrito-compra/carrito-compra.model';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ResumenVentaComponent } from '../resumen-venta/resumen-venta.component';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-ventas-header',
@@ -7,9 +13,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VentasHeaderComponent implements OnInit {
 
-  constructor() { }
+  // productos: Producto[];
+  // carrito: CarritoCompra;
+  get cantNavigate(): boolean { return this.sessionService.currentVenta != null; }
+
+  constructor(
+    private sessionService: SessionService,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
   }
 
+  public logOut() {
+    this.loginService.logOut();
+  }
 }

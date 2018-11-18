@@ -5,6 +5,7 @@ import { CompraProducto, CarritoCompra } from './carrito-compra.model';
 import { BonitaCaseService } from '../bonita/case/bonita-case.service';
 import { BonitaHumanTaskService } from '../bonita/human-task/bonita-human-task.service';
 import { ConfigService } from '../config/config.service';
+import { BonitaActivity } from '../bonita/bonita-shared.model';
 
 @Injectable({
   providedIn: 'root'
@@ -74,10 +75,6 @@ export class CarritoCompraService {
         }
       }
     });
-  }
-
-  public nuevoCarrito(): CarritoCompra {
-    return new CarritoCompra();
   }
 
   public asociarCupon(numeroCupon: number, productId: number): Promise<string> {
@@ -170,7 +167,10 @@ export class CarritoCompraService {
         }
 
         await this.bonitaCaseService.getCaseVariable(caseId, this.configService.Config.bonita.variables.ventaId)
-          .then(resp => result = resp.value);
+          .then(resp => {
+            result = resp.value;
+            this.sessionService.currentVenta = result;
+          });
 
         // Se finaliza toda la venta
         await this.bonitaCaseService.setCaseVariable(
@@ -178,7 +178,27 @@ export class CarritoCompraService {
             true, 'java.lang.Boolean');
         await this.bonitaHumanTaskService.complete(taskId);
         this.sessionService.currentCase = null;
+        this.sessionService.currentCart = null;
+        this.sessionService.currentProducts = null;
       }
       return result;
+  }
+
+  public IniciarCompra(): Promise<BonitaActivity> {
+    this.sessionService.currentProducts = null;
+    this.sessionService.currentVenta = null;
+    this.sessionService.currentCart = new CarritoCompra();
+    return new Promise<BonitaActivity>((resolve, reject) => {
+      this.bonitaCaseService.start().then(bonitaCase => {
+        this.bonitaHumanTaskService.whaitFor(bonitaCase.rootCaseId,
+          this.configService.Config.bonita.tasks.iniciarCompra)
+          .then(
+            actividad => {
+              resolve(actividad);
+            },
+            error => { reject(error); }
+          );
+      });
+    });
   }
 }

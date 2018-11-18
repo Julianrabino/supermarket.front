@@ -166,7 +166,6 @@ export class CarritoCompraComponent implements OnInit {
   private efectuarCompra() {
     this.carritoCompraService.efectuarCompra().then(
       ventaId => {
-        this.sessionService.currentVenta = ventaId;
         this.router.navigate(['/resumenVenta']);
       });
   }

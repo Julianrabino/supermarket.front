@@ -1,8 +1,10 @@
 <nav class="navbar navbar-dark bg-dark mb-5">  
   <div class="navbar-expand mr-auto">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/productos" routerLinkActive="active">Productos</a>
-      <a class="nav-item nav-link" routerLink="/carrito" routerLinkActive="active">Carrito</a>
+      <a class="nav-item nav-link" routerLink="/productos" routerLinkActive="active"
+        [class.disabled]="cantNavigate ? true : null">Productos</a>
+      <a class="nav-item nav-link" routerLink="/carrito" routerLinkActive="active"
+        [class.disabled]="cantNavigate ? true : null">Carrito</a>
       <!-- <a class="nav-item nav-link" routerLink="/resumenVenta" routerLinkActive="active">Resumen de Venta</a> -->
     </div>
   </div>
@@ -11,6 +13,8 @@
       <!-- <a class="nav-item nav-link" href="#" target="_blank">
         <i class="fa fa-shopping-cart"></i>
       </a> -->
+
+      <a class="nav-item nav-link" (click)="logOut()">Salir</a>
     </div>
   </div>
 </nav>

@@ -14,7 +14,8 @@ export class BonitaCaseService {
   constructor(
     private http: HttpClient,
     private configService: ConfigService,
-    private sessionService: SessionService) {
+    private sessionService: SessionService
+    ) {
       this.apiUrl = this.configService.Config.bonita.urls.cases;
   }
 
@@ -35,6 +36,7 @@ export class BonitaCaseService {
         { headers: headers })
         .toPromise().then(
           resp => {
+            this.sessionService.currentCase = resp;
             resolve(resp);
           },
           err => { reject(err); }
