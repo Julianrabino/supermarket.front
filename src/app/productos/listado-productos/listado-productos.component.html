@@ -30,7 +30,7 @@
                               ${{producto.precioVenta}}</p>
                       </div>
                       <div class="col-xs-12 col-md-6 text-light">
-                          <a class="btn btn-success" (click)="addToCart(producto);">Add to cart</a>
+                          <a class="btn btn-success" (click)="addToCart(producto);">Comprar <i class="fa fa-shopping-cart"></i></a>
                       </div>
                   </div>
                   <div *ngIf="mensajeUi && mensajeUi.RefId===producto.id" class="alert" 

@@ -5,20 +5,20 @@ import { SessionService } from '../session/session.service';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class VentaEfectivaGuard implements CanActivate {
 
     constructor(
         private router: Router,
         private sessionService: SessionService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.sessionService.currentUser) {
+        if (this.sessionService.currentVenta) {
             // logged in so return true
             return true;
         }
 
-        // no hay usuario logueado, redirecciona al login
-        this.router.navigate(['/login']);
+        // Si no hay venta se redirecciona a los productos
+        this.router.navigate(['/productos']);
         return false;
     }
 }

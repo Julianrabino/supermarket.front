@@ -4,6 +4,7 @@ import { CompraProducto, CarritoCompra } from './carrito-compra.model';
 import { MensajeUi } from '../shared/mensaje-ui.model';
 import { CarritoCompraService } from './carrito-compra.service';
 import { SimpleModalComponent, ModalDialogService } from 'ngx-modal-dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carrito-compra',
@@ -19,7 +20,8 @@ export class CarritoCompraComponent implements OnInit {
     private sessionService: SessionService,
     private carritoCompraService: CarritoCompraService,
     private modalService: ModalDialogService,
-    private viewRef: ViewContainerRef
+    private viewRef: ViewContainerRef,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -163,6 +165,9 @@ export class CarritoCompraComponent implements OnInit {
 
   private efectuarCompra() {
     this.carritoCompraService.efectuarCompra().then(
-      resp => { alert(resp); });
+      ventaId => {
+        this.sessionService.currentVenta = ventaId;
+        this.router.navigate(['/resumenVenta']);
+      });
   }
 }

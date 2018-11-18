@@ -37,5 +37,6 @@ export interface Config {
       currentTaskId: string;
       currentProducts: string;
       currentCart: string;
+      currentVenta: string;
     };
   }

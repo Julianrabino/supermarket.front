@@ -19,7 +19,7 @@ export class SessionService {
     } else {
       sessionStorage.setItem(key, null);
     }
-    
+
     return value;
   }
 
@@ -47,13 +47,13 @@ export class SessionService {
   }
 
   // Activity
-  get currentActivity(): BonitaActivity {
-    return this.get(this.configService.Config.sessionKeys.currentTaskId);
-  }
+  // get currentActivity(): BonitaActivity {
+  //   return this.get(this.configService.Config.sessionKeys.currentTaskId);
+  // }
 
-  set currentActivity(activity: BonitaActivity) {
-    this.set(this.configService.Config.sessionKeys.currentTaskId, activity);
-  }
+  // set currentActivity(activity: BonitaActivity) {
+  //   this.set(this.configService.Config.sessionKeys.currentTaskId, activity);
+  // }
 
   // Case
   get currentCase(): BonitaCase {
@@ -82,12 +82,22 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentCart, cart);
   }
 
+  // Venta
+  get currentVenta(): string {
+    return this.get(this.configService.Config.sessionKeys.currentVenta);
+  }
+
+  set currentVenta(ventaId: string) {
+    this.set(this.configService.Config.sessionKeys.currentVenta, ventaId);
+  }
+
   public clean(): void {
-    this.currentActivity = null;
+    // this.currentActivity = null;
     this.currentBonitaApiToken = null;
     this.currentCase = null;
     this.currentUser = null;
     this.currentProducts = null;
     this.currentCart = null;
+    this.currentVenta = null;
   }
 }

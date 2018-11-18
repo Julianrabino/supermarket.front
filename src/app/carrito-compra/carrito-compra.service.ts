@@ -170,13 +170,14 @@ export class CarritoCompraService {
         }
 
         await this.bonitaCaseService.getCaseVariable(caseId, this.configService.Config.bonita.variables.ventaId)
-          .then(resp => result = resp);
+          .then(resp => result = resp.value);
 
         // Se finaliza toda la venta
         await this.bonitaCaseService.setCaseVariable(
             caseId, this.configService.Config.bonita.variables.finCompra,
             true, 'java.lang.Boolean');
         await this.bonitaHumanTaskService.complete(taskId);
+        this.sessionService.currentCase = null;
       }
       return result;
   }

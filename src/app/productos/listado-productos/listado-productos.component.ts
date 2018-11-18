@@ -38,12 +38,12 @@ export class ListadoProductosComponent implements OnInit {
           this.configService.Config.bonita.tasks.iniciarCompra)
           .then(
             actividad => {
-              this.sessionService.currentActivity = actividad;
+              // this.sessionService.currentActivity = actividad;
               this.productosService.getProductos().then(
                 res => { this.productos = res; }
               );
             },
-            error => { this.errorFatal = error; }
+            error => { console.log(error); }
           );
       });
     } else {
