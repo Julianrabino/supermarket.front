@@ -5,6 +5,7 @@ import { MensajeUi } from '../shared/mensaje-ui.model';
 import { CarritoCompraService } from './carrito-compra.service';
 import { SimpleModalComponent, ModalDialogService } from 'ngx-modal-dialog';
 import { Router } from '@angular/router';
+import { ErrorService } from '../error/error.service';
 
 @Component({
   selector: 'app-carrito-compra',
@@ -23,7 +24,8 @@ export class CarritoCompraComponent implements OnInit {
     private carritoCompraService: CarritoCompraService,
     private modalService: ModalDialogService,
     private viewRef: ViewContainerRef,
-    private router: Router
+    private router: Router,
+    private erroService: ErrorService
   ) { }
 
   ngOnInit() {
@@ -169,10 +171,16 @@ export class CarritoCompraComponent implements OnInit {
 
   private efectuarCompra() {
     this.efectuandoCompra = true;
-    this.carritoCompraService.efectuarCompra().then(
-      ventaId => {
-        this.efectuandoCompra = false;
-        this.router.navigate(['/resumenVenta']);
-      });
+    this.carritoCompraService.efectuarCompra()
+      .then(
+        ventaId => {
+          this.efectuandoCompra = false;
+          this.router.navigate(['/resumenVenta']);
+        })
+      .catch(
+        error => {
+          this.erroService.handle(error);
+        }
+      );
   }
 }
