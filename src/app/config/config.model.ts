@@ -39,5 +39,6 @@ export interface Config {
       currentProducts: string;
       currentCart: string;
       currentVenta: string;
+      currentError: string;
     };
   }

@@ -51,3 +51,11 @@ export class BonitaActivity {
     last_update_date: Date;
     assigned_id: string;
 }
+
+export class BonitaError {
+    public mensaje: string;
+
+    constructor(mensaje: string) {
+        this.mensaje = mensaje;
+    }
+}

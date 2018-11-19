@@ -91,6 +91,15 @@ export class SessionService {
     this.set(this.configService.Config.sessionKeys.currentVenta, ventaId);
   }
 
+  // Venta
+  get currentError(): string {
+    return this.get(this.configService.Config.sessionKeys.currentError);
+  }
+
+  set currentError(mensaje: string) {
+    this.set(this.configService.Config.sessionKeys.currentError, mensaje);
+  }
+
   public clean(): void {
     // this.currentActivity = null;
     this.currentBonitaApiToken = null;
@@ -99,5 +108,6 @@ export class SessionService {
     this.currentProducts = null;
     this.currentCart = null;
     this.currentVenta = null;
+    this.currentError = null;
   }
 }

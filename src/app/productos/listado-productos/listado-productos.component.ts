@@ -5,6 +5,7 @@ import { ProductosService } from '../productos.service';
 import { CarritoCompraService } from 'src/app/carrito-compra/carrito-compra.service';
 import { MensajeUi } from 'src/app/shared/mensaje-ui.model';
 import { BonitaActivity } from 'src/app/bonita/bonita-shared.model';
+import { ErrorService } from 'src/app/error/error.service';
 
 @Component({
   selector: 'app-listado-productos',
@@ -14,25 +15,26 @@ import { BonitaActivity } from 'src/app/bonita/bonita-shared.model';
 export class ListadoProductosComponent implements OnInit {
 
   productos: Producto[];
-  errorFatal: string;
   mensajeUi: MensajeUi;
   modoLista: boolean;
 
   constructor(
     private sessionService: SessionService,
     private productosService: ProductosService,
-    private carritoCompraService: CarritoCompraService
+    private carritoCompraService: CarritoCompraService,
+    private errorService: ErrorService
     ) { }
 
   ngOnInit() {
     if (!this.sessionService.currentCase) {
-      this.carritoCompraService.IniciarCompra().then(
-        actividad => {
-          this.productosService.getProductos().then(
-            res => { this.productos = res; }
-          );
-        }
-      );
+      this.carritoCompraService.IniciarCompra()
+        .then(actividad => {
+            this.productosService.getProductos().then(
+              res => { this.productos = res; });
+        })
+        .catch(error => {
+          this.errorService.handle(error);
+        });
     } else {
      this.productos = this.sessionService.currentProducts;
     }

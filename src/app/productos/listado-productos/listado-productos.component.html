@@ -1,56 +1,56 @@
 <app-ventas-layout>
-  <div class="container" *ngIf="!productos">
-    <div class="col-12 col-sm-12 col-md-12 text-center">
-        <h4 style="color: grey">Recuperando productos</h4>
-    </div>
-    <div id="circle">
-        <div class="loader">
+    <div class="container" *ngIf="!productos">
+        <div class="col-12 col-sm-12 col-md-12 text-center">
+            <h4 style="color: grey" >Recuperando productos</h4>            
         </div>
-    </div> 
-  </div>
-  <div class="container" *ngIf="productos">
-    <div class="row">
-        <div class="col-lg-12 my-3">
-            <div class="pull-right">
-                <div class="btn-group">
-                    <button class="btn btn-info" id="list" (click)="showList()">
-                        List View
-                    </button>
-                    <button class="btn btn-danger" id="grid" (click)="showGrid()">
-                        Grid View
-                    </button>
+        <div id="circle">
+            <div class="loader">
+            </div>
+        </div> 
+    </div>
+    <div class="container" *ngIf="productos">
+        <div class="row">
+            <div class="col-lg-12 my-3">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-info" id="list" (click)="showList()">
+                            List View
+                        </button>
+                        <button class="btn btn-danger" id="grid" (click)="showGrid()">
+                            Grid View
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="products" class="row view-group">
-      <div *ngFor="let producto of productos" class="item col-xs-4 col-lg-4" [ngClass]="{'list-group-item': modoLista, 'grid-group-item': !modoLista}">
-          <div class="thumbnail card">
-              <div class="img-event">
-                  <img class="group list-group-image" [ngClass]="{'img-fluid': modoLista, 'img-responsive': !modoLista}"
-                    height="250" width="350" src="assets/img/products/{{producto.id}}.png" alt="" />
-              </div>
-              <div class="caption card-body">
-                  <h4 class="group card-title inner list-group-item-heading">
-                      {{ producto.name }}</h4>
-                  <p class="group inner list-group-item-text"></p>
-                  <div class="row">
-                      <div class="col-xs-12 col-md-6">
-                          <p class="lead">
-                              {{producto.precioVenta | currency}}</p>
-                      </div>
-                      <div class="col-xs-12 col-md-6 text-light">
-                          <a class="btn btn-success" (click)="addToCart(producto);">Comprar <i class="fa fa-shopping-cart"></i></a>
-                      </div>
-                  </div>
-                  <div *ngIf="mensajeUi && mensajeUi.RefId===producto.id" class="alert" 
-                    [ngClass]="{'alert-success': mensajeUi.Tipo==='info', 'alert-danger': mensajeUi.Tipo==='error'}">
-                      {{mensajeUi.Texto}}
+        <div id="products" class="row view-group">
+        <div *ngFor="let producto of productos" class="item col-xs-4 col-lg-4" [ngClass]="{'list-group-item': modoLista, 'grid-group-item': !modoLista}">
+            <div class="thumbnail card">
+                <div class="img-event">
+                    <img class="group list-group-image" [ngClass]="{'img-fluid': modoLista, 'img-responsive': !modoLista}"
+                        height="250" width="350" src="assets/img/products/{{producto.id}}.png" alt="" />
+                </div>
+                <div class="caption card-body">
+                    <h4 class="group card-title inner list-group-item-heading">
+                        {{ producto.name }}</h4>
+                    <p class="group inner list-group-item-text"></p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead">
+                                {{producto.precioVenta | currency}}</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6 text-light">
+                            <a class="btn btn-success" (click)="addToCart(producto);">Comprar <i class="fa fa-shopping-cart"></i></a>
+                        </div>
                     </div>
-              </div>
-          </div>
-      </div>      
-  </div>
-</div>
+                    <div *ngIf="mensajeUi && mensajeUi.RefId===producto.id" class="alert" 
+                        [ngClass]="{'alert-success': mensajeUi.Tipo==='info', 'alert-danger': mensajeUi.Tipo==='error'}">
+                        {{mensajeUi.Texto}}
+                        </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+    </div>    
 </app-ventas-layout>
 

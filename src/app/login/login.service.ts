@@ -46,13 +46,15 @@ export class LoginService {
     return promise;
   }
 
-  public logOut() {
+  public logOut(redirect: boolean = true) {
   // public logOut(): Promise<boolean> {
     // const promise = new Promise<boolean>((resolve, reject) => {
         this.bonitaAuthenticationService.logOut().then(
           res => {
             this.sessionService.clean();
-            this.router.navigate(['/login']);
+            if (redirect) {
+              this.router.navigate(['/login']);
+            }
             // resolve(true);
           });
     // });

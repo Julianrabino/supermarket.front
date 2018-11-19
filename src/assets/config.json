@@ -23,12 +23,12 @@
             "iniciarCompra": "IniciarCompra",
             "finalizarCompra": "FinalizarCompra"
         },
-        "processDefinitionId": "7468233454583613282",
+        "processDefinitionId": "5093345209966912301",
         "loginUsername": "customer",
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token",
         "humanTaskAssignedId": "101",
-        "cantidadIntentosPolling": 50,
+        "cantidadIntentosPolling": 25,
         "msDelayPolling": 500,
         "cantidadElementosPagina": 100
     },    
@@ -38,6 +38,7 @@
         "currentCase": "currentCase",
         "currentProducts": "currentProducts",
         "currentCart": "currentCart",
-        "currentVenta": "currentVenta"
+        "currentVenta": "currentVenta",
+        "currentError": "currentError"
     }
 }

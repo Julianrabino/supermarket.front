@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../../config/config.service';
 import { SessionService } from '../../session/session.service';
-import { BonitaActivity } from '../bonita-shared.model';
+import { BonitaActivity, BonitaError } from '../bonita-shared.model';
 import { BonitaHumanTask, BonitaHumanTaskSetState } from './bonita-human-task.model';
+import { BonitaActitivyService } from '../activity/bonita-actitivy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,11 @@ export class BonitaHumanTaskService {
   constructor(
     private http: HttpClient,
     private configService: ConfigService,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private bonitaActivityService: BonitaActitivyService
+    ) {
       this.apiUrl = this.configService.Config.bonita.urls.humanTasks;
-  }
+    }
 
   async delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
@@ -43,6 +46,15 @@ export class BonitaHumanTaskService {
       );
       if (!result) {
         await this.delay(this.configService.Config.bonita.msDelayPolling);
+      }
+    }
+    if (!result) {
+      const activities = await this.bonitaActivityService.getForCase(caseId);
+      if (activities) {
+        const failedIndex = activities.findIndex(a => a.state === 'failed');
+        if (failedIndex !== -1) {
+          throw new BonitaError('Ha ocurrido un error ' + activities[failedIndex].description);
+        }
       }
     }
     return result;

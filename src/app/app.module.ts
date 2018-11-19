@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CarritoCompraComponent } from './carrito-compra/carrito-compra.component';
 import { ModalDialogModule } from 'ngx-modal-dialog';
 import { ResumenVentaComponent } from './resumen-venta/resumen-venta.component';
+import { ErrorComponent } from './error/error.component';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -29,7 +30,8 @@ export function get_Config(configService: ConfigService) {
     VentasHeaderComponent,
     FooterComponent,
     CarritoCompraComponent,
-    ResumenVentaComponent
+    ResumenVentaComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

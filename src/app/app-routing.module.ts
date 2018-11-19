@@ -6,9 +6,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { CarritoCompraComponent } from './carrito-compra/carrito-compra.component';
 import { ResumenVentaComponent } from './resumen-venta/resumen-venta.component';
 import { VentaEfectivaGuard } from './guards/venta-efectiva-guard';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
+  { path: 'error', component: ErrorComponent },
   { path: 'productos', component: ListadoProductosComponent, canActivate: [AuthGuard] },
   { path: 'carrito', component: CarritoCompraComponent, canActivate: [AuthGuard] },
   { path: 'resumenVenta', component: ResumenVentaComponent, canActivate: [AuthGuard, VentaEfectivaGuard] },
