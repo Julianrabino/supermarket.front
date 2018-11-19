@@ -16,6 +16,7 @@ export class CarritoCompraComponent implements OnInit {
   productos: CompraProducto[];
   mensajeUi: MensajeUi;
   efectuandoCompra: boolean;
+  puedeUsarCupones: boolean;
 
   constructor(
     private sessionService: SessionService,
@@ -27,6 +28,8 @@ export class CarritoCompraComponent implements OnInit {
 
   ngOnInit() {
     this.productos = this.sessionService.currentCart.Productos;
+    this.carritoCompraService.puedeUsarCupones().then(result => {
+      this.puedeUsarCupones = result; });
   }
 
   public incrementarProducto(compraProducto: CompraProducto) {

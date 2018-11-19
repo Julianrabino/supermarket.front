@@ -57,11 +57,11 @@ export class SessionService {
 
   // Case
   get currentCase(): BonitaCase {
-    return this.get(this.configService.Config.sessionKeys.currentCaseId);
+    return this.get(this.configService.Config.sessionKeys.currentCase);
   }
 
   set currentCase(caso: BonitaCase) {
-    this.set(this.configService.Config.sessionKeys.currentCaseId, caso);
+    this.set(this.configService.Config.sessionKeys.currentCase, caso);
   }
 
   // Products

@@ -65,7 +65,7 @@
               </div>
               <div class="card-footer">
                   <div class="coupon col-md-7 col-sm-7 no-padding-left pull-left">
-                      <div class="row">
+                      <div class="row" *ngIf="puedeUsarCupones">
                           <div class="col-4">
                               <input type="text" class="form-control" placeholder="cupón..." #inputCupon>
                           </div>

@@ -32,7 +32,7 @@
                         <td>{{itemVenta.ProductName}}</td>
                         <td class="text-center">{{itemVenta.PrecioVentaOriginal | currency }}</td>
                         <td class="text-center">{{itemVenta.NroCupon}} <span *ngIf="itemVenta.NroCupon && !itemVenta.CuponValido"> (inválido)</span></td>
-                        <td class="text-center">{{itemVenta.PrecioVentaEfectivo | currency }}</td>
+                        <td class="text-center">{{itemVenta.PrecioVentaAplicado | currency }}</td>
                         <td class="text-center">{{itemVenta.Cantidad}}</td>
                         <td class="text-right">{{itemVenta.MontoTotal | currency }}</td>
                       </tr>

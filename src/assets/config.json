@@ -16,26 +16,26 @@
             "productIdCompra": "p_productIdCompra",
             "cuponCompra": "p_cuponCompra",
             "finCompra": "p_finCompra",
-            "ventaId": "p_uuid"
+            "ventaId": "p_uuid",
+            "esEmpleado": "p_esEmpleado"
         },
         "tasks": {
             "iniciarCompra": "IniciarCompra",
             "finalizarCompra": "FinalizarCompra"
         },
-        "processDefinitionId": "4664483923677369977",
+        "processDefinitionId": "7468233454583613282",
         "loginUsername": "customer",
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token",
         "humanTaskAssignedId": "101",
-        "cantidadIntentosPolling": 25,
+        "cantidadIntentosPolling": 50,
         "msDelayPolling": 500,
         "cantidadElementosPagina": 100
     },    
     "sessionKeys": {
         "currentUser": "currentUser",
         "currentBonitaApiToken": "currentBonitaApiToken",
-        "currentCaseId": "currentCaseId",
-        "currentTaskId": "currentTaskId",
+        "currentCase": "currentCase",
         "currentProducts": "currentProducts",
         "currentCart": "currentCart",
         "currentVenta": "currentVenta"

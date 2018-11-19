@@ -22,7 +22,7 @@ export class ResumenVentaService {
             itemVenta.Cantidad = 1;
             itemVenta.NroCupon = ventaModel.nroCupon !== 0 ? ventaModel.nroCupon : null;
             itemVenta.CuponValido = itemVenta.NroCupon ? ventaModel.cuponValido : null;
-            itemVenta.PrecioVentaEfectivo = ventaModel.precioVentaEfectivo;
+            itemVenta.PrecioVentaAplicado = ventaModel.precioVentaAplicado;
             itemVenta.PrecioVentaOriginal = ventaModel.precioVentaOriginal;
             itemVenta.ProductId = ventaModel.productId;
             itemVenta.ProductName = ventaModel.productName;

@@ -17,6 +17,7 @@ export interface Config {
           cuponCompra: string;
           finCompra: string;
           ventaId: string;
+          esEmpleado: string;
       },
       tasks: {
         iniciarCompra: string;
@@ -34,8 +35,7 @@ export interface Config {
     sessionKeys: {
       currentUser: string;
       currentBonitaApiToken: string;
-      currentCaseId: string;
-      currentTaskId: string;
+      currentCase: string;
       currentProducts: string;
       currentCart: string;
       currentVenta: string;

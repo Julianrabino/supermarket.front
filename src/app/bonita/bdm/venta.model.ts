@@ -3,7 +3,7 @@ export class BonitaVentaModel {
     productId: number;
     productName: string;
     nroDocumentoCliente: number;
-    precioVentaEfectivo: number;
+    precioVentaAplicado: number;
     precioVentaOriginal: number;
     precioCosto: number;
     nroCupon: number;

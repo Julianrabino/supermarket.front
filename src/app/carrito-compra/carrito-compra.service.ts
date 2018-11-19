@@ -201,4 +201,13 @@ export class CarritoCompraService {
       });
     });
   }
+
+  public puedeUsarCupones(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.bonitaCaseService.getCaseVariable(
+        this.sessionService.currentCase.id,
+        this.configService.Config.bonita.variables.esEmpleado).then(
+          variable => { resolve(!JSON.parse(variable.value)); });
+    });
+  }
 }

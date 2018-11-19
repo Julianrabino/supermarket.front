@@ -26,17 +26,17 @@ export class Venta {
 export class ItemVenta {
     public ProductId: number;
     public ProductName: string;
-    public PrecioVentaEfectivo: number;
+    public PrecioVentaAplicado: number;
     public PrecioVentaOriginal: number;
     public NroCupon?: number;
     public CuponValido?: boolean;
     public VentaExitosa: boolean;
     public Cantidad: number;
-    public get MontoTotal(): number { return this.Cantidad * this.PrecioVentaEfectivo; }
+    public get MontoTotal(): number { return this.Cantidad * this.PrecioVentaAplicado; }
 
     public equals(itemVenta: ItemVenta) {
         return this.ProductId === itemVenta.ProductId &&
-            this.PrecioVentaEfectivo === itemVenta.PrecioVentaEfectivo &&
+            this.PrecioVentaAplicado === itemVenta.PrecioVentaAplicado &&
             this.PrecioVentaOriginal === itemVenta.PrecioVentaOriginal &&
             (this.NroCupon === itemVenta.NroCupon || (this.NroCupon == null && itemVenta.NroCupon == null)) &&
             (this.CuponValido === itemVenta.CuponValido || (this.CuponValido == null && itemVenta.CuponValido == null)) &&
