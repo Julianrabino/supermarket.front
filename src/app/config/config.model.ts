@@ -30,6 +30,7 @@ export interface Config {
       humanTaskAssignedId: string;
       cantidadIntentosPolling: number;
       msDelayPolling: number;
+      reintentoPolling: boolean;
       cantidadElementosPagina: number;
     };
     sessionKeys: {

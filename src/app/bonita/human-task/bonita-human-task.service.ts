@@ -29,6 +29,7 @@ export class BonitaHumanTaskService {
   public async whaitFor(caseId: string, name: string): Promise<BonitaActivity> {
     let result;
     let cantidadIntentos = this.configService.Config.bonita.cantidadIntentosPolling;
+    const reintentoPolling = this.configService.Config.bonita.reintentoPolling;
     let fin = false;
     while (!fin && cantidadIntentos > 0) {
       await this.getCurrent(caseId).then(
@@ -41,19 +42,24 @@ export class BonitaHumanTaskService {
           }
         },
         error => {
-          fin = true;
+          throw new BonitaError('Ha ocurrido un error inesperado');
         }
       );
       if (!result) {
         await this.delay(this.configService.Config.bonita.msDelayPolling);
-      }
-    }
-    if (!result) {
-      const activities = await this.bonitaActivityService.getForCase(caseId);
-      if (activities) {
-        const failedIndex = activities.findIndex(a => a.state === 'failed');
-        if (failedIndex !== -1) {
-          throw new BonitaError('Ha ocurrido un error ' + activities[failedIndex].description);
+
+        if (cantidadIntentos === 0) {
+          const activities = await this.bonitaActivityService.getForCase(caseId);
+          if (activities) {
+            const failedIndex = activities.findIndex(a => a.state === 'failed');
+            if (failedIndex !== -1) {
+              throw new BonitaError('Ha ocurrido un error ' + activities[failedIndex].description);
+            } else {
+              if (reintentoPolling) {
+                cantidadIntentos = this.configService.Config.bonita.cantidadIntentosPolling;
+              }
+            }
+          }
         }
       }
     }

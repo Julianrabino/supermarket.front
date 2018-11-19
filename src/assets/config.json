@@ -30,6 +30,7 @@
         "humanTaskAssignedId": "101",
         "cantidadIntentosPolling": 25,
         "msDelayPolling": 500,
+        "reintentoPolling": true,
         "cantidadElementosPagina": 100
     },    
     "sessionKeys": {
