@@ -9,4 +9,5 @@ export class BonitaVentaModel {
     nroCupon: number;
     cuponValido: boolean;
     ventaExitosa: boolean;
+    porcentajeDescuentoCupon: number;
 }

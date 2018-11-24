@@ -27,6 +27,7 @@ export class ResumenVentaService {
             itemVenta.ProductId = ventaModel.productId;
             itemVenta.ProductName = ventaModel.productName;
             itemVenta.VentaExitosa = ventaModel.ventaExitosa;
+            itemVenta.PorcentajeDescuentoCupon = ventaModel.porcentajeDescuentoCupon;
             result.agregarVenta(itemVenta);
           });
           resolve(result);

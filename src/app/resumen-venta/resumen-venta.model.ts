@@ -32,6 +32,7 @@ export class ItemVenta {
     public CuponValido?: boolean;
     public VentaExitosa: boolean;
     public Cantidad: number;
+    public PorcentajeDescuentoCupon: number;
     public get MontoTotal(): number { return this.Cantidad * this.PrecioVentaAplicado; }
 
     public equals(itemVenta: ItemVenta) {
