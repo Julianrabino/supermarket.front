@@ -1,0 +1,23 @@
+#circle 
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	width: 100px;
+    height: 100px;	
+}
+
+.loader 
+{
+    width: calc(100% - 0px);
+	height: calc(100% - 0px);
+	border: 15px solid #48545F;
+	border-top: 15px solid rgb(221, 221, 221);
+	border-radius: 50%;
+	animation: rotate 1.5s linear infinite;
+}
+
+@keyframes rotate {
+    100% {transform: rotate(360deg);}
+} 

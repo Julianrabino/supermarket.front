@@ -21,8 +21,26 @@ export class BonitaVentaModelService {
         this.configService.Config.bonita.apiTokenHeader,
         this.sessionService.currentBonitaApiToken);
 
-      const params = '?q=findByVentaId&p=0&c=' +
-        this.configService.Config.bonita.cantidadElementosPagina + '&f=ventaId=' + ventaId;
+      const params = '?q=findByVentaId&p=0&c=100&f=ventaId=' + ventaId;
+
+      this.http.get<BonitaVentaModel[]>(this.configService.Config.bonita.urls.businessDataVenta + params,
+        { headers: headers }).toPromise().then(
+          resp => {
+            resolve(resp);
+          },
+          err => { reject(err); }
+      );
+    });
+  }
+
+  public obtenerDescuentosVenta(page: number): Promise<BonitaVentaModel[]> {
+    return new Promise<BonitaVentaModel[]>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders().set(
+        this.configService.Config.bonita.apiTokenHeader,
+        this.sessionService.currentBonitaApiToken);
+
+      const params = '?q=findDescuentos&p=' + page + '&c=' +
+        this.configService.Config.bonita.cantidadElementosPagina;
 
       this.http.get<BonitaVentaModel[]>(this.configService.Config.bonita.urls.businessDataVenta + params,
         { headers: headers }).toPromise().then(

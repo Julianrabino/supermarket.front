@@ -1,4 +1,5 @@
 export class BonitaVentaModel {
+    persistenceId: number;
     ventaId: string;
     productId: number;
     productName: string;
@@ -10,4 +11,5 @@ export class BonitaVentaModel {
     cuponValido: boolean;
     ventaExitosa: boolean;
     porcentajeDescuentoCupon: number;
+    fechaVenta: Date;
 }

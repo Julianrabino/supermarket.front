@@ -25,7 +25,7 @@ export class LoginFormComponent implements OnInit {
     this.model = new LoginUser();
     this.loginService.GetCurrentUser().then(user => {
       this.usuarioLogueado = user;
-      this.perfilAdministrador = this.loginService.perfilAdministrador(this.usuarioLogueado);
+      this.perfilAdministrador = this.usuarioLogueado ? this.loginService.perfilAdministrador(this.usuarioLogueado) : false;
     });
   }
 

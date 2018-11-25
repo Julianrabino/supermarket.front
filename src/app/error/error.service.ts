@@ -15,7 +15,8 @@ export class ErrorService {
   ) { }
 
   public handle(error: any) {
-    this.sessionService.currentError = error.mensaje;
+    const msg = error.mensaje ? error.mensaje : 'Ha ocurrido un error inesperado';
+    this.sessionService.currentError = msg;
     this.loginService.logOut(false);
     this.router.navigate(['/error']);
   }
