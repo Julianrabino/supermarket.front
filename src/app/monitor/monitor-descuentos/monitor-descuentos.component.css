@@ -1,3 +1,12 @@
+:host >>> .page-item.active .page-link {
+    background-color: hsl(0, 0%, 56%);
+    border-color: white;
+}
+
+:host >>> .page-link {
+    color: black;
+}
+
 #circle 
 {
     position: absolute;

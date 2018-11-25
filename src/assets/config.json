@@ -31,7 +31,7 @@
         "cantidadIntentosPolling": 25,
         "msDelayPolling": 500,
         "reintentoPolling": true,
-        "cantidadElementosPagina": 100
+        "cantidadElementosPagina": 5
     },    
     "sessionKeys": {
         "currentUser": "currentUser",

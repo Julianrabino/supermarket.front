@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BonitaVentaModelService } from 'src/app/bonita/bdm/bonita-venta-model.service';
 import { ItemDescuentoVenta } from './monitor-descuentos.model';
+import { ConfigService } from 'src/app/config/config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import { ItemDescuentoVenta } from './monitor-descuentos.model';
 export class MonitorDescuentosService {
 
   constructor(
-    private bonitaVentaModelService: BonitaVentaModelService
+    private bonitaVentaModelService: BonitaVentaModelService,
+    private configService: ConfigService
   ) { }
 
   public obtenerDecuentosVentas(page: number): Promise<ItemDescuentoVenta[]> {
@@ -23,5 +25,9 @@ export class MonitorDescuentosService {
       })
       .catch(error => { reject(error); });
     });
+  }
+
+  public obtenerCantidadDescuentosVenta(): Promise<number> {
+    return this.bonitaVentaModelService.obtenerCantidadDescuentosVenta();
   }
 }

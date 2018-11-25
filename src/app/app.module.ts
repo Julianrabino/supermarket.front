@@ -20,6 +20,7 @@ import { MonitorLayoutComponent } from './monitor/monitor-layout/monitor-layout.
 import { MonitorHeaderComponent } from './monitor/monitor-header/monitor-header.component';
 import { MonitorFooterComponent } from './monitor/monitor-footer/monitor-footer.component';
 import { MonitorDescuentosComponent } from './monitor/monitor-descuentos/monitor-descuentos.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -46,7 +47,8 @@ export function get_Config(configService: ConfigService) {
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    ModalDialogModule.forRoot()
+    ModalDialogModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     ConfigService,
