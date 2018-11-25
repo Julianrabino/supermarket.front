@@ -16,6 +16,10 @@ import { CarritoCompraComponent } from './carrito-compra/carrito-compra.componen
 import { ModalDialogModule } from 'ngx-modal-dialog';
 import { ResumenVentaComponent } from './resumen-venta/resumen-venta.component';
 import { ErrorComponent } from './error/error.component';
+import { MonitorLayoutComponent } from './monitor/monitor-layout/monitor-layout.component';
+import { MonitorHeaderComponent } from './monitor/monitor-header/monitor-header.component';
+import { MonitorFooterComponent } from './monitor/monitor-footer/monitor-footer.component';
+import { MonitorDescuentosComponent } from './monitor/monitor-descuentos/monitor-descuentos.component';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -31,7 +35,11 @@ export function get_Config(configService: ConfigService) {
     FooterComponent,
     CarritoCompraComponent,
     ResumenVentaComponent,
-    ErrorComponent
+    ErrorComponent,
+    MonitorLayoutComponent,
+    MonitorHeaderComponent,
+    MonitorFooterComponent,
+    MonitorDescuentosComponent
   ],
   imports: [
     BrowserModule,

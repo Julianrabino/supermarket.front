@@ -67,4 +67,12 @@ export class LoginService {
       });
     return promise;
   }
+
+  public perfilAdministrador(usuario: Usuario): boolean {
+    return usuario.perfil === 'admin';
+  }
+
+  public perfilCliente(usuario: Usuario): boolean {
+    return usuario.perfil === 'cliente';
+  }
 }

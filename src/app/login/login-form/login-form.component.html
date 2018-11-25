@@ -38,7 +38,8 @@
       <div style="text-align:center">
         <h1>Hola {{usuarioLogueado.nombrePila}} {{usuarioLogueado.apellido}}!!</h1>
         <div id="logout"><button class="btn btn-secundary" (click)="logout()">Logout</button></div>
-        <a routerLink="/productos" routerLinkActive="active">Ver Productos</a>
+        <a *ngIf="!perfilAdministrador" routerLink="/productos" routerLinkActive="active">Ver Productos</a>
+        <a *ngIf="perfilAdministrador" routerLink="/monitorDescuentos" routerLinkActive="active">Ver Monitor</a>
       </div>      
   </div>
 </div>

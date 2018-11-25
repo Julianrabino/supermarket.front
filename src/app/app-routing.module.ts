@@ -7,13 +7,17 @@ import { CarritoCompraComponent } from './carrito-compra/carrito-compra.componen
 import { ResumenVentaComponent } from './resumen-venta/resumen-venta.component';
 import { VentaEfectivaGuard } from './guards/venta-efectiva-guard';
 import { ErrorComponent } from './error/error.component';
+import { AdminGuard } from './guards/admin.guard';
+import { MonitorDescuentosComponent } from './monitor/monitor-descuentos/monitor-descuentos.component';
+import { ClienteGuard } from './guards/cliente.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'error', component: ErrorComponent },
-  { path: 'productos', component: ListadoProductosComponent, canActivate: [AuthGuard] },
-  { path: 'carrito', component: CarritoCompraComponent, canActivate: [AuthGuard] },
-  { path: 'resumenVenta', component: ResumenVentaComponent, canActivate: [AuthGuard, VentaEfectivaGuard] },
+  { path: 'productos', component: ListadoProductosComponent, canActivate: [AuthGuard, ClienteGuard] },
+  { path: 'carrito', component: CarritoCompraComponent, canActivate: [AuthGuard, ClienteGuard] },
+  { path: 'resumenVenta', component: ResumenVentaComponent, canActivate: [AuthGuard, ClienteGuard, VentaEfectivaGuard] },
+  { path: 'monitorDescuentos', component: MonitorDescuentosComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'

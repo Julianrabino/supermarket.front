@@ -13,8 +13,6 @@ import { LoginService } from '../login/login.service';
 })
 export class VentasHeaderComponent implements OnInit {
 
-  // productos: Producto[];
-  // carrito: CarritoCompra;
   get cantNavigate(): boolean { return this.sessionService.currentVenta != null; }
 
   constructor(

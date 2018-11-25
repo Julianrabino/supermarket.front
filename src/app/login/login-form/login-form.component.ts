@@ -15,6 +15,7 @@ export class LoginFormComponent implements OnInit {
   usuarioLogueado: Usuario = null;
   model: LoginUser;
   errorLogin: string = null;
+  perfilAdministrador: boolean;
 
   constructor(
     private loginService: LoginService,
@@ -24,6 +25,7 @@ export class LoginFormComponent implements OnInit {
     this.model = new LoginUser();
     this.loginService.GetCurrentUser().then(user => {
       this.usuarioLogueado = user;
+      this.perfilAdministrador = this.loginService.perfilAdministrador(this.usuarioLogueado);
     });
   }
 
@@ -32,13 +34,19 @@ export class LoginFormComponent implements OnInit {
     this.loginService.logIn(this.model).then(
       res => {
         this.usuarioLogueado = res;
-        this.router.navigate(['productos']);
+        this.perfilAdministrador = this.loginService.perfilAdministrador(this.usuarioLogueado);
+        if (this.perfilAdministrador) {
+          this.router.navigate(['monitorDescuentos']);
+        } else {
+          this.router.navigate(['productos']);
+        }
       },
       msg => this.errorLogin = msg);
   }
 
   logout() {
     this.usuarioLogueado = null;
+    this.perfilAdministrador = false;
     this.loginService.logOut();
     // this.loginService.logOut().then(res => {
     //   if (res) {

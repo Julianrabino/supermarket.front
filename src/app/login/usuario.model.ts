@@ -3,6 +3,5 @@ export class Usuario {
     public nombrePila: string;
     public apellido: string;
     public numeroDocumento: number;
-
-    constructor() {}
+    public perfil: string;
 }
