@@ -21,6 +21,7 @@ import { MonitorHeaderComponent } from './monitor/monitor-header/monitor-header.
 import { MonitorFooterComponent } from './monitor/monitor-footer/monitor-footer.component';
 import { MonitorDescuentosComponent } from './monitor/monitor-descuentos/monitor-descuentos.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -46,6 +47,7 @@ export function get_Config(configService: ConfigService) {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     ModalDialogModule.forRoot(),
     PaginationModule.forRoot()

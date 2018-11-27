@@ -23,8 +23,8 @@
                 </div>
             </div>
         </div>
-        <div id="products" class="row view-group">
-        <div *ngFor="let producto of productos" class="item col-xs-4 col-lg-4" [ngClass]="{'list-group-item': modoLista, 'grid-group-item': !modoLista}">
+        <div id="products" class="row view-group" [@staggerFadeIn]="productos.length">
+            <div *ngFor="let producto of productos" class="item col-xs-4 col-lg-4" [ngClass]="{'list-group-item': modoLista, 'grid-group-item': !modoLista}">
             <div class="thumbnail card">
                 <div class="img-event">
                     <img class="group list-group-image" [ngClass]="{'img-fluid': modoLista, 'img-responsive': !modoLista}"
@@ -43,10 +43,10 @@
                             <a class="btn btn-success" (click)="addToCart(producto);">Comprar <i class="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
-                    <div *ngIf="mensajeUi && mensajeUi.RefId===producto.id" class="alert" 
+                    <div [@verticalExpand] *ngIf="mensajeUi && mensajeUi.RefId===producto.id" class="alert" 
                         [ngClass]="{'alert-success': mensajeUi.Tipo==='info', 'alert-danger': mensajeUi.Tipo==='error'}">
                         {{mensajeUi.Texto}}
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>      

@@ -4,13 +4,16 @@ import { SessionService } from 'src/app/session/session.service';
 import { ProductosService } from '../productos.service';
 import { CarritoCompraService } from 'src/app/carrito-compra/carrito-compra.service';
 import { MensajeUi } from 'src/app/shared/mensaje-ui.model';
-import { BonitaActivity } from 'src/app/bonita/bonita-shared.model';
 import { ErrorService } from 'src/app/error/error.service';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { animacionStaggerFadeIn } from 'src/app/animations/animacion-stagger-fade-in';
+import { animacionVerticalExpand } from 'src/app/animations/animacion-vertical-expand';
 
 @Component({
   selector: 'app-listado-productos',
   templateUrl: './listado-productos.component.html',
-  styleUrls: ['./listado-productos.component.css']
+  styleUrls: ['./listado-productos.component.css'],
+  animations: [ animacionStaggerFadeIn, animacionVerticalExpand ]
 })
 export class ListadoProductosComponent implements OnInit {
 
@@ -55,6 +58,6 @@ export class ListadoProductosComponent implements OnInit {
       })
       .catch(error => {
         this.mensajeUi = new MensajeUi(error, producto.id, 'error');
-      });
+      }).finally(() => { setTimeout(() => { this.mensajeUi = null; }, 3000); });
   }
 }

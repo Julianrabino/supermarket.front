@@ -6,11 +6,14 @@ import { CarritoCompraService } from './carrito-compra.service';
 import { SimpleModalComponent, ModalDialogService } from 'ngx-modal-dialog';
 import { Router } from '@angular/router';
 import { ErrorService } from '../error/error.service';
+import { animacionStaggerFadeIn } from '../animations/animacion-stagger-fade-in';
+import { animacionVerticalExpand } from '../animations/animacion-vertical-expand';
 
 @Component({
   selector: 'app-carrito-compra',
   templateUrl: './carrito-compra.component.html',
-  styleUrls: ['./carrito-compra.component.css']
+  styleUrls: ['./carrito-compra.component.css'],
+  animations: [ animacionStaggerFadeIn, animacionVerticalExpand ]
 })
 export class CarritoCompraComponent implements OnInit {
 
