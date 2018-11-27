@@ -75,7 +75,7 @@
                               <option *ngFor="let compraProducto of productos" [value]="compraProducto.Producto.id">{{compraProducto.Producto.name}}</option>
                             </select>
                             <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="button" (click)="asociarCupon(+inputCupon.value, +inputCuponProducto.value); inputCupon.value = '';">Aplicar</button>
+                              <button class="btn btn-success" type="button" (click)="asociarCupon(+inputCupon.value, +inputCuponProducto.value); inputCupon.value = '';">Aplicar</button>
                             </div>
                           </div>
                       </div>                      
