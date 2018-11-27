@@ -3,14 +3,13 @@ import { MonitorDescuentosService } from './monitor-descuentos.service';
 import { ItemDescuentoVenta } from './monitor-descuentos.model';
 import { ErrorService } from 'src/app/error/error.service';
 import { ConfigService } from 'src/app/config/config.service';
-import { animacionStaggerFadeIn } from 'src/app/animations/animacion-stagger-fade-in';
 import { animacionVerticalExpand } from 'src/app/animations/animacion-vertical-expand';
 
 @Component({
   selector: 'app-monitor-descuentos',
   templateUrl: './monitor-descuentos.component.html',
   styleUrls: ['./monitor-descuentos.component.css'],
-  animations: [ animacionStaggerFadeIn, animacionVerticalExpand ]
+  animations: [ animacionVerticalExpand ]
 })
 export class MonitorDescuentosComponent implements OnInit {
 
@@ -43,6 +42,10 @@ export class MonitorDescuentosComponent implements OnInit {
     .catch(error => {
       this.errorService.handle(error);
     });
+  }
+
+  public borrarElementos() {
+    this.descuentosVenta.splice(0, this.itemsPorPagina);
   }
 
   public pageChanged(event) {

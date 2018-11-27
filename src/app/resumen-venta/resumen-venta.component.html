@@ -1,13 +1,5 @@
 <app-ventas-layout>
-    <div *ngIf="venta" class="container">
-        <!-- <div class="row">
-            <div class="col-xs-12">
-            <div class="invoice-title">
-              <h2>Nro. Venta</h2><h5 class="text-right">123</h5>
-            </div>
-          </div>
-        </div> -->
-        
+    <div *ngIf="venta" class="container" [@verticalExpand]>
         <div class="row">
           <div class="col-md-12">
             <div class="panel panel-default">
@@ -27,7 +19,7 @@
                           <td class="text-right"><strong>Totales</strong></td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody [@staggerFadeIn]="venta.Items.length">
                       <tr *ngFor="let itemVenta of venta.Items" [class]="{'invalid': !itemVenta.VentaExitosa }">
                         <td>{{itemVenta.ProductName}}</td>
                         <td class="text-center">{{itemVenta.PrecioVentaOriginal | currency }}</td>

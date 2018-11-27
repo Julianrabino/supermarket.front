@@ -4,11 +4,13 @@ import { Usuario } from '../usuario.model';
 import { LoginService } from '../login.service';
 import { LoginUser } from '../login-user.model';
 import { Router } from '@angular/router';
+import { animacionVerticalExpand } from 'src/app/animations/animacion-vertical-expand';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.css'],
+  animations: [ animacionVerticalExpand ]
 })
 export class LoginFormComponent implements OnInit {
   title = 'Supermercado Online';

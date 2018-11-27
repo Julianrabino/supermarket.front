@@ -1,19 +1,19 @@
 <app-monitor-layout>
-  <div class="container" *ngIf="!descuentosVenta">
+  <div class="container" *ngIf="!descuentosVenta" [@verticalExpand]>
       <div class="col-12 col-sm-12 col-md-12 text-center">
-          <h4 style="color: grey" >Recuperando ventas</h4>            
+          <h4 style="color: grey">Recuperando ventas</h4>            
       </div>
       <div id="circle">
           <div class="loader">
           </div>
       </div> 
   </div>
-  <div class="container" *ngIf="descuentosVenta && descuentosVenta.length === 0">
+  <div class="container" *ngIf="descuentosVenta && descuentosVenta.length === 0" [@verticalExpand]>
         <div class="col-12 col-sm-12 col-md-12 text-center">
             <h4 style="color: grey">No hay ventas registradas</h4>
         </div>
   </div>
-  <div class="container" *ngIf="descuentosVenta && descuentosVenta.length > 0">
+  <div class="container" *ngIf="descuentosVenta && descuentosVenta.length > 0" [@verticalExpand]>
     <h2>Descuentos por venta</h2>
     <table class="table table-striped">
       <thead>
@@ -24,7 +24,7 @@
               <th>Ganancia</th>
           </tr>
       </thead>
-      <tbody [@staggerFadeIn]="descuentosVenta.length">
+      <tbody>
         <tr *ngFor="let item of descuentosVenta">
             <!--first example-->
             <td>{{item.FechaVenta}}</td>
@@ -34,7 +34,7 @@
         </tr>
       </tbody>
     </table>
-    <pagination [boundaryLinks]="true" [totalItems]="cantidadDescuentosVenta" [(ngModel)]="currentPage"
+    <pagination [boundaryLinks]="true" [totalItems]="cantidadDescuentosVenta" [(ngModel)]="paginaActual"
         [itemsPerPage]="itemsPorPagina" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" 
         nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
     </pagination>

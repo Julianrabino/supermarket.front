@@ -6,6 +6,7 @@ import { BonitaCaseService } from '../bonita/case/bonita-case.service';
 import { BonitaHumanTaskService } from '../bonita/human-task/bonita-human-task.service';
 import { ConfigService } from '../config/config.service';
 import { BonitaActivity } from '../bonita/bonita-shared.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class CarritoCompraService {
     private bonitaHumanTaskService: BonitaHumanTaskService,
     private configService: ConfigService
   ) { }
+
+  public cantidadProductos = new BehaviorSubject<number>(this.obtenerCantidadArticulos(this.sessionService.currentCart));
 
   public agregarProducto(producto: Producto, cantidad: number): Promise<string> {
     return new Promise<string>((resolve, reject) => {
@@ -45,6 +48,7 @@ export class CarritoCompraService {
             carrito.Productos[compraProductoIndex] = compraProducto;
           }
           this.sessionService.currentCart = carrito;
+          this.cantidadProductos.next(this.obtenerCantidadArticulos(carrito));
           resolve('Se agregó el producto correctamente');
         }
       }
@@ -71,6 +75,7 @@ export class CarritoCompraService {
             }
           }
           this.sessionService.currentCart = carrito;
+          this.cantidadProductos.next(this.obtenerCantidadArticulos(carrito));
           resolve('Se eliminó el producto correctamente');
         }
       }
@@ -180,6 +185,7 @@ export class CarritoCompraService {
         this.sessionService.currentCase = null;
         this.sessionService.currentCart = null;
         this.sessionService.currentProducts = null;
+        this.cantidadProductos.next(0);
       }
       return result;
   }
@@ -188,6 +194,7 @@ export class CarritoCompraService {
     this.sessionService.currentProducts = null;
     this.sessionService.currentVenta = null;
     this.sessionService.currentCart = new CarritoCompra();
+    this.cantidadProductos.next(this.obtenerCantidadArticulos(this.sessionService.currentCart));
     return new Promise<BonitaActivity>((resolve, reject) => {
       this.bonitaCaseService.start().then(bonitaCase => {
         this.bonitaHumanTaskService.whaitFor(bonitaCase.rootCaseId,
@@ -209,5 +216,15 @@ export class CarritoCompraService {
         this.configService.Config.bonita.variables.esEmpleado).then(
           variable => { resolve(!JSON.parse(variable.value)); });
     });
+  }
+
+  public obtenerCantidadArticulos(carritoCompra: CarritoCompra) {
+    let result = 0;
+    if (carritoCompra) {
+      carritoCompra.Productos.forEach(producto => {
+        result += producto.Cantidad;
+      });
+    }
+    return result;
   }
 }

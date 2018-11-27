@@ -6,7 +6,7 @@
   <img width="150" alt="Logo supermercado" src="assets/img/start_logo.png"> 
 </div>
 <div class="container">
-  <div *ngIf="!usuarioLogueado">
+  <div *ngIf="!usuarioLogueado" [@verticalExpand]>
     <div style="text-align:center">
       <h1>Iniciar sesión</h1>
     </div>
@@ -29,12 +29,12 @@
 
       <button id="submit" type="submit" class="btn btn-success" [disabled]="!loginForm.form.valid">Submit</button>
   
-      <div *ngIf="errorLogin" class="alert alert-danger">
+      <div *ngIf="errorLogin" class="alert alert-danger" [@verticalExpand]>
         {{errorLogin}}
       </div>
     </form>
   </div>
-  <div *ngIf="usuarioLogueado">      
+  <div *ngIf="usuarioLogueado" [@verticalExpand]>      
       <div style="text-align:center">
         <h1>Hola {{usuarioLogueado.nombrePila}} {{usuarioLogueado.apellido}}!!</h1>
         <div id="logout"><button class="btn btn-secundary" (click)="logout()">Logout</button></div>

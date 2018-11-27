@@ -5,7 +5,6 @@ import { ProductosService } from '../productos.service';
 import { CarritoCompraService } from 'src/app/carrito-compra/carrito-compra.service';
 import { MensajeUi } from 'src/app/shared/mensaje-ui.model';
 import { ErrorService } from 'src/app/error/error.service';
-import { trigger, transition, style, animate } from '@angular/animations';
 import { animacionStaggerFadeIn } from 'src/app/animations/animacion-stagger-fade-in';
 import { animacionVerticalExpand } from 'src/app/animations/animacion-vertical-expand';
 
@@ -58,6 +57,13 @@ export class ListadoProductosComponent implements OnInit {
       })
       .catch(error => {
         this.mensajeUi = new MensajeUi(error, producto.id, 'error');
-      }).finally(() => { setTimeout(() => { this.mensajeUi = null; }, 3000); });
+      })
+      .finally(() => {
+        setTimeout((mensaje) => {
+          if (mensaje === this.mensajeUi)  {
+            this.mensajeUi = null;
+          }
+        }, 3000, this.mensajeUi);
+      });
   }
 }
