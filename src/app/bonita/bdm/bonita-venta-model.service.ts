@@ -52,6 +52,25 @@ export class BonitaVentaModelService {
     });
   }
 
+  public obtenerCuponesVenta(page: number): Promise<BonitaVentaModel[]> {
+    return new Promise<BonitaVentaModel[]>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders().set(
+        this.configService.Config.bonita.apiTokenHeader,
+        this.sessionService.currentBonitaApiToken);
+
+      const params = '?q=findCuponesAplicados&p=' + page + '&c=' +
+        this.configService.Config.bonita.cantidadElementosPagina;
+
+      this.http.get<BonitaVentaModel[]>(this.configService.Config.bonita.urls.businessDataVenta + params,
+        { headers: headers }).toPromise().then(
+          resp => {
+            resolve(resp);
+          },
+          err => { reject(err); }
+      );
+    });
+  }
+
   public obtenerCantidadDescuentosVenta(): Promise<number> {
     return new Promise<number>((resolve, reject) => {
       const headers: HttpHeaders = new HttpHeaders().set(
@@ -59,6 +78,24 @@ export class BonitaVentaModelService {
         this.sessionService.currentBonitaApiToken);
 
       const params = '?q=countForFindDescuentos&p=0&c=1';
+
+      this.http.get<number[]>(this.configService.Config.bonita.urls.businessDataVenta + params,
+        { headers: headers }).toPromise().then(
+          resp => {
+            resolve(resp[0]);
+          },
+          err => { reject(err); }
+      );
+    });
+  }
+
+  public obtenerCantidadCuponesVenta(): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders().set(
+        this.configService.Config.bonita.apiTokenHeader,
+        this.sessionService.currentBonitaApiToken);
+
+      const params = '?q=countForFindCuponesAplicados&p=0&c=1';
 
       this.http.get<number[]>(this.configService.Config.bonita.urls.businessDataVenta + params,
         { headers: headers }).toPromise().then(

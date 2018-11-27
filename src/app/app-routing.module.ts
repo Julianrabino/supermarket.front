@@ -10,6 +10,7 @@ import { ErrorComponent } from './error/error.component';
 import { AdminGuard } from './guards/admin.guard';
 import { MonitorDescuentosComponent } from './monitor/monitor-descuentos/monitor-descuentos.component';
 import { ClienteGuard } from './guards/cliente.guard';
+import { MonitorCuponesComponent } from './monitor/monitor-cupones/monitor-cupones.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'carrito', component: CarritoCompraComponent, canActivate: [AuthGuard, ClienteGuard] },
   { path: 'resumenVenta', component: ResumenVentaComponent, canActivate: [AuthGuard, ClienteGuard, VentaEfectivaGuard] },
   { path: 'monitorDescuentos', component: MonitorDescuentosComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'monitorCupones', component: MonitorCuponesComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'

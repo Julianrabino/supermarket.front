@@ -25,7 +25,7 @@
           </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of descuentosVenta">
+        <tr *ngFor="let item of descuentosVenta" [ngClass]="{'invalid': item.MontoGanancia < 0 }">
             <!--first example-->
             <td>{{item.FechaVenta}}</td>
             <td>{{item.ProductName}}</td>
