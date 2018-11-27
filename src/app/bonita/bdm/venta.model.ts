@@ -12,4 +12,5 @@ export class BonitaVentaModel {
     ventaExitosa: boolean;
     porcentajeDescuentoCupon: number;
     fechaVenta: Date;
+    esEmpleado: boolean;
 }

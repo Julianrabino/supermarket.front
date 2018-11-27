@@ -20,6 +20,7 @@ export class ResumenVentaService {
           respVentas.forEach(ventaModel => {
             const itemVenta = new ItemVenta();
             itemVenta.Cantidad = 1;
+            result.PuedeUsarCupones = !ventaModel.esEmpleado;
             itemVenta.NroCupon = ventaModel.nroCupon !== 0 ? ventaModel.nroCupon : null;
             itemVenta.CuponValido = itemVenta.NroCupon ? ventaModel.cuponValido : null;
             itemVenta.PrecioVentaAplicado = ventaModel.precioVentaAplicado;

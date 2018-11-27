@@ -23,7 +23,7 @@
             "iniciarCompra": "IniciarCompra",
             "finalizarCompra": "FinalizarCompra"
         },
-        "processDefinitionId": "5365645636410415269",
+        "processDefinitionId": "7722895299755800791",
         "loginUsername": "customer",
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token",

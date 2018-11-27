@@ -13,7 +13,7 @@
                         <tr>
                           <td><strong>Producto</strong></td>
                           <td class="text-center"><strong>Precio original</strong></td>
-                          <td class="text-center"><strong>Cupón</strong></td>
+                          <td *ngIf="venta.PuedeUsarCupones" class="text-center"><strong>Cupón</strong></td>
                           <td class="text-center"><strong>Precio aplicado</strong></td>
                           <td class="text-center"><strong>Cantidad</strong></td>
                           <td class="text-right"><strong>Totales</strong></td>
@@ -23,7 +23,7 @@
                       <tr *ngFor="let itemVenta of venta.Items" [class]="{'invalid': !itemVenta.VentaExitosa }">
                         <td>{{itemVenta.ProductName}}</td>
                         <td class="text-center">{{itemVenta.PrecioVentaOriginal | currency }}</td>
-                        <td class="text-center">{{itemVenta.NroCupon}} <span *ngIf="itemVenta.NroCupon && !itemVenta.CuponValido"> (inválido)</span><span *ngIf="itemVenta.NroCupon && itemVenta.CuponValido"> ({{itemVenta.PorcentajeDescuentoCupon}}% de descuento)</span></td>
+                        <td *ngIf="venta.PuedeUsarCupones" class="text-center">{{itemVenta.NroCupon}} <span *ngIf="itemVenta.NroCupon && !itemVenta.CuponValido"> (inválido)</span><span *ngIf="itemVenta.NroCupon && itemVenta.CuponValido"> ({{itemVenta.PorcentajeDescuentoCupon}}% de descuento)</span></td>
                         <td class="text-center">{{itemVenta.PrecioVentaAplicado | currency }}</td>
                         <td class="text-center">{{itemVenta.Cantidad}}</td>
                         <td class="text-right">{{itemVenta.MontoTotal | currency }}</td>
@@ -31,7 +31,7 @@
                       <tr>
                         <td class="thick-line"></td>
                         <td class="thick-line"></td>
-                        <td class="thick-line"></td>
+                        <td *ngIf="venta.PuedeUsarCupones" class="thick-line"></td>
                         <td class="thick-line"></td>
                         <td class="thick-line"></td>
                         <td class="thick-line"></td>
@@ -39,7 +39,7 @@
                       <tr>
                         <td class="no-line"></td>
                         <td class="no-line"></td>
-                        <td class="no-line"></td>
+                        <td *ngIf="venta.PuedeUsarCupones" class="no-line"></td>
                         <td class="no-line"></td>
                         <td class="no-line text-center"><strong>Total</strong></td>
                         <td class="no-line text-right">{{venta.MontoTotal | currency }}</td>

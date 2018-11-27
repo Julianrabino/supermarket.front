@@ -8,6 +8,7 @@ export class Venta {
     }
     public VentaId: string;
     public Items: ItemVenta[];
+    public PuedeUsarCupones: boolean;
 
     constructor() {
         this.Items = [];
