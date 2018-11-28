@@ -27,8 +27,8 @@
       <tbody>
         <tr *ngFor="let item of casos" [ngClass]="{'invalid': item.state == 'failed' }">
             <!--first example-->
-            <td>{{item.start}}</td>
-            <td>{{item.end_date}}</td>            
+            <td>{{item.start | date: 'dd/MM/yyyy h:mm:ss a' }}</td>
+            <td>{{item.end_date | date: 'dd/MM/yyyy h:mm:ss a' }}</td>            
             <td>{{item.rootCaseId}}</td>
             <td>{{item.state}}</td>      
         </tr>
