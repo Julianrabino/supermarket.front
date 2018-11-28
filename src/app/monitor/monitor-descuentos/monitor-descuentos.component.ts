@@ -36,6 +36,8 @@ export class MonitorDescuentosComponent implements OnInit {
               this.descuentosVenta = res;
             }
           );
+        } else {
+          this.descuentosVenta = [];
         }
       }
     )

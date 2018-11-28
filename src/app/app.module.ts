@@ -23,6 +23,7 @@ import { MonitorDescuentosComponent } from './monitor/monitor-descuentos/monitor
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MonitorCuponesComponent } from './monitor/monitor-cupones/monitor-cupones.component';
+import { MonitorArchivedCasesComponent } from './monitor/monitor-archived-cases/monitor-archived-cases.component';
 
 export function get_Config(configService: ConfigService) {
   return () => configService.getConfig();
@@ -43,7 +44,8 @@ export function get_Config(configService: ConfigService) {
     MonitorHeaderComponent,
     MonitorFooterComponent,
     MonitorDescuentosComponent,
-    MonitorCuponesComponent
+    MonitorCuponesComponent,
+    MonitorArchivedCasesComponent
   ],
   imports: [
     BrowserModule,

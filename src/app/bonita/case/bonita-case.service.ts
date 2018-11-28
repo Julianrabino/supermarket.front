@@ -81,4 +81,49 @@ export class BonitaCaseService {
       );
     });
   }
+
+  public getArchivedCases(page: number, processDefinitionId?: string): Promise<BonitaCase[]> {
+    const promise = new Promise<BonitaCase[]>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders().set(
+        this.configService.Config.bonita.apiTokenHeader,
+        this.sessionService.currentBonitaApiToken);
+
+      let params = '?p=' + page + '&c=' +
+        this.configService.Config.bonita.cantidadElementosPagina;
+      if (processDefinitionId) {
+        params += '&f=processDefinitionId=' + processDefinitionId;
+      }
+
+      this.http.get<BonitaCase[]>(this.configService.Config.bonita.urls.archivedCase + params,
+        { headers: headers }).toPromise().then(
+          resp => {
+            resolve(resp);
+          },
+          err => { reject(err); }
+      );
+    });
+    return promise;
+  }
+
+  public getCantidadArchivedCases(processDefinitionId?: string): Promise<number> {
+    const promise = new Promise<number>((resolve, reject) => {
+      const headers: HttpHeaders = new HttpHeaders().set(
+        this.configService.Config.bonita.apiTokenHeader,
+        this.sessionService.currentBonitaApiToken);
+
+      let params = '?p=0&c=0';
+      if (processDefinitionId) {
+        params += '&f=processDefinitionId=' + processDefinitionId;
+      }
+
+      this.http.get<BonitaCase>(this.configService.Config.bonita.urls.archivedCase + params,
+        { headers: headers, observe: 'response' }).toPromise().then(
+          resp => {
+            resolve(+(resp.headers.get('Content-Range').split('/')[1]));
+          },
+          err => { reject(err); }
+      );
+    });
+    return promise;
+  }
 }

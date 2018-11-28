@@ -1,0 +1,42 @@
+<app-monitor-layout>
+  <div class="container" *ngIf="!casos" [@verticalExpand]>
+      <div class="col-12 col-sm-12 col-md-12 text-center">
+          <h4 style="color: grey">Recuperando casos</h4>            
+      </div>
+      <div id="circle">
+          <div class="loader">
+          </div>
+      </div> 
+  </div>
+  <div class="container" *ngIf="casos && casos.length === 0" [@verticalExpand]>
+        <div class="col-12 col-sm-12 col-md-12 text-center">
+            <h4 style="color: grey">No hay casos registrados</h4>
+        </div>
+  </div>
+  <div class="container" *ngIf="casos && casos.length > 0" [@verticalExpand]>
+    <h2>Casos archivados</h2>
+    <table class="table table-striped">
+      <thead>
+          <tr class="info">
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Caso (original)</th>
+              <th>Estado</th>              
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of casos" [ngClass]="{'invalid': item.state == 'failed' }">
+            <!--first example-->
+            <td>{{item.start}}</td>
+            <td>{{item.end_date}}</td>            
+            <td>{{item.rootCaseId}}</td>
+            <td>{{item.state}}</td>      
+        </tr>
+      </tbody>
+    </table>
+    <pagination [boundaryLinks]="true" [totalItems]="cantidadCasos" [(ngModel)]="paginaActual"
+        [itemsPerPage]="itemsPorPagina" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" 
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+ </div>
+</app-monitor-layout>

@@ -8,7 +8,8 @@
             "humanTasks": "/bonita/API/bpm/humanTask", 
             "activities": "/bonita/API/bpm/activity",
             "caseVariable": "/bonita/API/bpm/caseVariable",
-            "businessDataVenta": "/bonita/API/bdm/businessData/com.company.model.VentaDataModel"
+            "businessDataVenta": "/bonita/API/bdm/businessData/com.company.model.VentaDataModel",
+            "archivedCase": "/bonita/API/bpm/archivedCase"
         },
         "variables": {
             "nroDocumento": "p_nroDocumento",
@@ -23,7 +24,7 @@
             "iniciarCompra": "IniciarCompra",
             "finalizarCompra": "FinalizarCompra"
         },
-        "processDefinitionId": "7722895299755800791",
+        "processDefinitionId": "5631148686080517019",
         "loginUsername": "customer",
         "loginPassword": "123",
         "apiTokenHeader": "X-Bonita-API-Token",

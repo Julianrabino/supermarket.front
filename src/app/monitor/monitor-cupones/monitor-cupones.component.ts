@@ -36,6 +36,8 @@ export class MonitorCuponesComponent implements OnInit {
               this.ventas = res;
             }
           );
+        } else {
+          this.ventas = [];
         }
       }
     )

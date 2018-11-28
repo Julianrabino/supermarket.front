@@ -9,6 +9,7 @@ export interface Config {
         businessDataVenta: string;
         loginService: string;
         logoutService: string;
+        archivedCase: string;
       },
       variables: {
           nroDocumento: string;
