@@ -26,7 +26,7 @@ export class BonitaHumanTaskService {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
-  public async whaitFor(caseId: string, name: string): Promise<BonitaActivity> {
+  public async whaitFor(caseId: string, name: string, anotherId?: string): Promise<BonitaActivity> {
     let result;
     let cantidadIntentos = this.configService.Config.bonita.cantidadIntentosPolling;
     const reintentoPolling = this.configService.Config.bonita.reintentoPolling;
@@ -34,7 +34,7 @@ export class BonitaHumanTaskService {
     while (!fin && cantidadIntentos > 0) {
       await this.getCurrent(caseId).then(
         task => {
-          if (task && (task.name === name)) {
+          if (task && (task.name === name && (!anotherId || (task.id !== anotherId)))) {
             result = task;
             fin = true;
           } else {

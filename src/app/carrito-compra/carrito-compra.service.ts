@@ -160,13 +160,13 @@ export class CarritoCompraService {
             await this.bonitaHumanTaskService.complete(taskId);
 
             // Espera poder finalizar la compra
-            await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.finalizarCompra)
-              .then(actitivy =>  taskId = actitivy.id);
+            // await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.finalizarCompra)
+              // .then(actitivy =>  taskId = actitivy.id);
             // Finaliza la compra
-            await this.bonitaHumanTaskService.complete(taskId);
+            // await this.bonitaHumanTaskService.complete(taskId);
 
             // Espera poder inciar la nueva compra (antes de setear los nuevos valores de las variables)
-            await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.iniciarCompra)
+            await this.bonitaHumanTaskService.whaitFor(caseId, this.configService.Config.bonita.tasks.iniciarCompra, taskId)
               .then(actitivy =>  taskId = actitivy.id);
           }
         }
@@ -180,7 +180,10 @@ export class CarritoCompraService {
         // Se finaliza toda la venta
         await this.bonitaCaseService.setCaseVariable(
             caseId, this.configService.Config.bonita.variables.finCompra,
-            true, 'java.lang.Boolean');
+            'true', 'java.lang.Boolean');
+
+        // await this.bonitaCaseService.getCaseVariable(
+        //       caseId, this.configService.Config.bonita.variables.finCompra);
         await this.bonitaHumanTaskService.complete(taskId);
         this.sessionService.currentCase = null;
         this.sessionService.currentCart = null;

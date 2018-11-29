@@ -3,11 +3,13 @@ import { BonitaCase } from 'src/app/bonita/case/bonita-case.model';
 import { ErrorService } from 'src/app/error/error.service';
 import { ConfigService } from 'src/app/config/config.service';
 import { BonitaCaseService } from 'src/app/bonita/case/bonita-case.service';
+import { animacionVerticalExpand } from 'src/app/animations/animacion-vertical-expand';
 
 @Component({
   selector: 'app-monitor-archived-cases',
   templateUrl: './monitor-archived-cases.component.html',
-  styleUrls: ['./monitor-archived-cases.component.css']
+  styleUrls: ['./monitor-archived-cases.component.css'],
+  animations: [ animacionVerticalExpand ]
 })
 export class MonitorArchivedCasesComponent implements OnInit {
 

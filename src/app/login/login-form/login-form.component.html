@@ -20,7 +20,7 @@
       </div>
 
       <div class="form-group">
-        <label for="inputPassword">Password</label>
+        <label for="inputPassword">Contraseña</label>
         <input type="password" class="form-control" id="inputPassword" required [(ngModel)]="model.password" name="password" #password='ngModel'>
         <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
             Se requiere la constraseña
