@@ -101,7 +101,7 @@ export class CarritoCompraService {
               reject('Un cupón solo puede ser utilizado una vez');
             }
           } else {
-            reject('Solo se puede usar un copón por producto comprado');
+            reject('Solo se puede usar un cupón por producto comprado');
           }
           this.sessionService.currentCart = carrito;
           resolve('Cupón agreado correctamente');
