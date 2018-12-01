@@ -38,7 +38,7 @@
       </table>
       <pagination [boundaryLinks]="true" [totalItems]="cantidadVentas" [(ngModel)]="paginaActual"
           [itemsPerPage]="itemsPorPagina" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" 
-          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [maxSize]="10">
       </pagination>
    </div>
   </app-monitor-layout>
